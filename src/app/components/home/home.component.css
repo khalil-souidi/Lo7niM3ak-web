@@ -1,0 +1,93 @@
+.hero-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #f5f5f5;
+  }
+  
+  .hero-content {
+    max-width: 50%;
+  }
+  
+  .hero-content h1 {
+    font-size: 36px;
+    color: #333;
+  }
+  
+  .hero-content p {
+    font-size: 18px;
+    color: #666;
+  }
+  
+  .search-bar {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+  }
+  
+  .search-bar input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .search-btn {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .search-btn:hover {
+    background-color: #0056b3;
+  }
+  
+  .hero-image {
+    height: 300px;
+  }
+  
+  .popular-trips {
+    padding: 20px;
+  }
+  
+  .popular-trips h2 {
+    margin-bottom: 20px;
+  }
+  
+  .trips-container {
+    display: flex;
+    gap: 20px;
+  }
+  
+  .trip-card {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: white;
+  }
+  
+  .features-section {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
+    background-color: #e9ecef;
+  }
+  
+  .feature h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  
+  .steps-section {
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .steps img {
+    margin: 10px;
+    width: 100px;
+  }
+  
