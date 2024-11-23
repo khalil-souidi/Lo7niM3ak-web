@@ -1,93 +1,165 @@
+/* Hero Section */
 .hero-section {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px;
-    background-color: #f5f5f5;
-  }
-  
-  .hero-content {
-    max-width: 50%;
-  }
-  
-  .hero-content h1 {
-    font-size: 36px;
-    color: #333;
-  }
-  
-  .hero-content p {
-    font-size: 18px;
-    color: #666;
-  }
-  
-  .search-bar {
-    margin-top: 20px;
-    display: flex;
-    gap: 10px;
-  }
-  
-  .search-bar input {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-  
-  .search-btn {
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .search-btn:hover {
-    background-color: #0056b3;
-  }
-  
-  .hero-image {
-    height: 300px;
-  }
-  
-  .popular-trips {
-    padding: 20px;
-  }
-  
-  .popular-trips h2 {
-    margin-bottom: 20px;
-  }
-  
-  .trips-container {
-    display: flex;
-    gap: 20px;
-  }
-  
-  .trip-card {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    background-color: white;
-  }
-  
-  .features-section {
-    display: flex;
-    justify-content: space-around;
-    padding: 20px;
-    background-color: #e9ecef;
-  }
-  
-  .feature h3 {
-    font-size: 18px;
-    margin-bottom: 10px;
-  }
-  
-  .steps-section {
-    padding: 20px;
-    text-align: center;
-  }
-  
-  .steps img {
-    margin: 10px;
-    width: 100px;
-  }
-  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-image: url('/assets/covoiturage.jpeg'); /* Use absolute path */
+  background-size: cover;
+  background-position: center;
+  height: 500px;
+  color: white;
+}
+
+.hero-content {
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.hero-content h1 {
+  font-size: 36px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.hero-content p {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.search-bar {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.search-bar input,
+.search-bar select {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 150px;
+}
+
+.search-btn {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.search-btn:hover {
+  background-color: #0056b3;
+}
+
+/* Popular Trips Section */
+.popular-trips {
+  padding: 50px 20px;
+  text-align: center;
+}
+
+.popular-trips h2 {
+  font-size: 24px;
+  margin-bottom: 30px;
+}
+
+.trips-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.trip-card {
+  background-color: white;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  text-align: left;
+}
+
+.trip-card h3 {
+  margin: 10px 0;
+}
+
+.trip-card .price {
+  font-weight: bold;
+  color: #007bff;
+}
+
+.trip-card .rating {
+  font-size: 14px;
+  color: #777;
+}
+
+/* Features Section */
+.features-section {
+  display: flex;
+  justify-content: space-around;
+  padding: 50px 20px;
+  background-color: #f9f9f9;
+}
+
+.feature {
+  text-align: center;
+  max-width: 300px;
+}
+
+.feature h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.feature p {
+  font-size: 14px;
+  color: #555;
+}
+
+/* Steps Section */
+.steps-section {
+  padding: 50px 20px;
+  text-align: center;
+}
+
+.steps-section h2 {
+  font-size: 24px;
+  margin-bottom: 30px;
+}
+
+.steps {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 200px;
+  text-align: center;
+}
+
+.step-img {
+  width: 120px;
+  height: auto;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.step p {
+  font-size: 14px;
+  color: #555;
+  margin-top: 10px;
+}
+
+.arrow img {
+  width: 50px;
+  height: auto;
+}
