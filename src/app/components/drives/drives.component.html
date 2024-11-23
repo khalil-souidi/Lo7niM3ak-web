@@ -1,0 +1,12 @@
+<div class="drives-container">
+  <h2>Résultats de recherche</h2>
+  <p *ngIf="filteredDrives.length === 0">Aucun trajet trouvé pour votre recherche.</p>
+  <div *ngFor="let drive of filteredDrives" class="drive-card">
+    <h3>{{ drive.pickup }} ➡️ {{ drive.destination }}</h3>
+    <p><strong>Date :</strong> {{ drive.deptime | date:'short' }}</p>
+    <p><strong>Prix :</strong> {{ drive.price | currency:'EUR' }}</p>
+    <p><strong>Places disponibles :</strong> {{ drive.seating }}</p>
+    <p>{{ drive.description }}</p>
+    <button>Réserver ce trajet</button>
+  </div>
+</div>
