@@ -1,79 +1,123 @@
-<div class="hero-section">
-  <div class="hero-content">
-    <h1>Trouvez votre prochaine destination</h1>
-    <p>Indiquez dans la barre ci-dessous votre itinéraire</p>
-    <div class="search-bar">
-      <input type="text" placeholder="Départ" />
-      <input type="text" placeholder="Destination" />
-      <input type="date" />
-      <select>
-        <option>1 adulte</option>
-        <option>2 adultes</option>
-        <option>3 adultes</option>
-      </select>
-      <button class="search-btn">Rechercher</button>
+
+  <!-- Hero Section -->
+  <div class="hero-section">
+    <div class="hero-content">
+      <h1 id="tit1">Trouvez le moyen de transport idéal pour vos trajets entre villes</h1>
+      <p>Choisissez le trajet parfait : bus, train ou covoiturage. Économisez, et voyagez facilement !</p>
+      <div class="search-bar-container">
+        <div class="search-bar-item">
+          <input type="text" placeholder="Départ" aria-label="Point de départ">
+          <span class="icon">📍</span>
+        </div>
+        <div class="search-bar-item">
+          <input type="text" placeholder="Destination" aria-label="Destination">
+          <span class="icon">📍</span>
+        </div>
+        <div class="search-bar-item">
+          <input type="date" aria-label="Date du trajet">
+          <span class="icon">📅</span>
+        </div>
+        <div class="search-bar-item">
+          <select aria-label="Nombre de passagers">
+            <option>1 adulte</option>
+            <option>2 adultes</option>
+            <option>3 adultes</option>
+          </select>
+          <span class="icon">👤</span>
+        </div>
+        <button class="search-btn">
+          🔍 Recherche
+        </button>
+      </div>
+      
     </div>
+  </div>
+
+  <!-- Secure Carpooling Section -->
+<div class="secure-carpooling">
+  <div class="secure-content">
+    <h2 class="secure-title">Covoiturage serein avec des utilisateurs vérifiés et un support dédié</h2>
+    <p class="secure-description">
+      Chez Pip Pip Yalah, nous mettons tout en œuvre pour assurer la sécurité de nos utilisateurs.
+      Chaque membre est vérifié par une pièce d'identité et une photo, et vous avez accès à
+      l’ancienneté, l’historique des voyages, ainsi qu’aux avis laissés par la communauté.
+      Notre service support reste disponible tout au long de votre trajet pour vous assister si nécessaire.
+    </p>
+  </div>
+  <div class="secure-image-container">
+    <img src="assets/safety.avif" alt="Utilisateurs vérifiés et support" class="secure-image">
   </div>
 </div>
 
-<div class="popular-trips">
-  <h2>Les Trajets Populaires:</h2>
-  <div class="trips-container">
-    <div class="trip-card">
-      <p>12:06 &mdash; 4:00</p>
-      <h3>Casablanca → Marrakech</h3>
-      <p>Conducteur: Mouad</p>
-      <span class="price">45.5€</span>
-      <span class="rating">4.5 ⭐</span>
+
+  <!-- Popular Destinations Section -->
+  <div class="popular-destinations">
+    <h2>Les destinations les plus populaires</h2>
+    <p>Découvrez les destinations les plus recherchées pour votre prochaine aventure</p>
+    <div class="destinations-container">
+      <div class="destination-card">
+        <img src="assets/casablanca.jpg" alt="Casablanca">
+        <h3>Casablanca</h3>
+        <button>Explorer les offres</button>
+      </div>
+      <div class="destination-card">
+        <img src="assets/rabat_img.jpg" alt="Rabat">
+        <h3>Rabat</h3>
+        <button>Explorer les offres</button>
+      </div>
+      <div class="destination-card">
+        <img src="assets/marrakech_img.avif" alt="Marrakech">
+        <h3>Marrakech</h3>
+        <button>Explorer les offres</button>
+      </div>
+      <div class="destination-card">
+        <img src="assets/agadir_img.jpg" alt="Agadir">
+        <h3>Agadir</h3>
+        <button>Explorer les offres</button>
+      </div>
     </div>
-    <div class="trip-card">
-      <p>12:06 &mdash; 4:00</p>
-      <h3>Marrakech → Agadir</h3>
-      <p>Conducteur: Zouhair</p>
-      <span class="price">45.5€</span>
-      <span class="rating">4.5 ⭐</span>
-    </div>
-    <!-- Add additional cards here -->
   </div>
-</div>
 
-<div class="steps-section">
-  <h2>Comment ça marche ?</h2>
-  <div class="steps">
-    <div class="step">
-      <img src="assets/step1.jpeg" alt="Step 1" class="step-img" />
+  <!-- Steps Section -->
+  <div class="steps-section">
+    <h2 id="tit3">Comment ça marche ?</h2>
+    <div class="steps">
+      <div class="step">
+        <img src="assets/step1.jpeg" alt="Step 1" class="step-img">
+      </div>
+      <div class="arrow">
+        <img src="assets/arrow.png" alt="Arrow">
+      </div>
+      <div class="step">
+        <img src="assets/step2.jpeg" alt="Step 2" class="step-img">
+      </div>
+      <div class="arrow">
+        <img src="assets/arrow.png" alt="Arrow">
+      </div>
+      <div class="step">
+        <img src="assets/step3.jpeg" alt="Step 3" class="step-img">
+      </div>
     </div>
-    <div class="arrow">
-      <img src="assets/arrow.png" alt="Arrow" />
-    </div>
-    <div class="step">
-      <img src="assets/step2.jpeg" alt="Step 2" class="step-img" />
-    </div>
-    <div class="arrow">
-      <img src="assets/arrow.png" alt="Arrow" />
-    </div>
-    <div class="step">
-      <img src="assets/step3.jpeg" alt="Step 3" class="step-img" />
-    </div>
-  </div>
-</div>
+  </div>
 
-<div class="features-section">
+  <!-- Features Section -->
+<div class="features-section" id="tit3">
   <div class="feature">
-    <img src="assets/icon-economize.png" alt="Économisez Icon" class="feature-icon" />
-    <h3>Économisez</h3>
-    <p>Partagez les frais de transport pour économiser de l'argent.</p>
+    <img src="assets/icon-economize.png" alt="Économisez Icon" class="feature-icon">
+    <h3>Réservez en un clic !</h3>
+    <p>Réserver un trajet n’a jamais été aussi facile ! Trouvez un trajet à proximité en quelques minutes.</p>
   </div>
   <div class="feature">
-    <img src="assets/icon-secure.png" alt="Sécurisé Icon" class="feature-icon" />
-    <h3>Sécurisé</h3>
-    <p>Voyagez en toute tranquillité grâce à notre système renforcé.</p>
+    <img src="assets/icon-secure.png" alt="Sécurisé Icon" class="feature-icon">
+    <h3>Voyagez l'esprit tranquille</h3>
+    <p>Consultez les avis, vérifiez les profils, et réservez en toute sécurité.</p>
   </div>
   <div class="feature">
-    <img src="assets/icon-optimized.png" alt="Optimisé Icon" class="feature-icon" />
-    <h3>Optimisé</h3>
-    <p>Optimisez vos trajets pour des déplacements fluides et rapides.</p>
+    <img src="assets/icon-optimized.png" alt="Optimisé Icon" class="feature-icon">
+    <h3>Votre choix de trajets à bas prix</h3>
+    <p>Peu importe où vous allez, trouvez le trajet parfait parmi une large gamme de destinations.</p>
   </div>
 </div>
 
+  
 

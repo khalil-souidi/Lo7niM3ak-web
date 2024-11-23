@@ -1,37 +1,47 @@
+/* General Styling */
+body {
+  font-family: 'Arial', sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+}
+
 /* Hero Section */
 .hero-section {
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
-  background-image: url('/assets/covoiturage.jpeg'); /* Use absolute path */
+  background: linear-gradient(to top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.557)), 
+              url('/assets/covoiturage.avif'); /* Add gradient overlay */
   background-size: cover;
   background-position: center;
-  height: 500px;
+  height: 300px;
   color: white;
 }
 
 .hero-content {
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: #00000000; /* Transparent background */
   padding: 20px;
   border-radius: 10px;
+  margin-top: 180px;
 }
 
 .hero-content h1 {
-  font-size: 36px;
+  font-size: 28px;
   font-weight: bold;
   margin-bottom: 10px;
 }
 
 .hero-content p {
-  font-size: 18px;
+  font-size: 16px;
   margin-bottom: 20px;
 }
 
 .search-bar {
   display: flex;
   gap: 10px;
-  justify-content: center;
 }
 
 .search-bar input,
@@ -42,74 +52,125 @@
   width: 150px;
 }
 
+/* Search Button */
 .search-btn {
-  padding: 10px 20px;
-  background-color: #007bff;
+  background-color: #2D71E4; /* Updated color */
   color: white;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: bold;
   border: none;
-  border-radius: 4px;
+  border-radius: 10px;
   cursor: pointer;
+  transition: background-color 0.3s;
 }
 
 .search-btn:hover {
-  background-color: #0056b3;
+  background-color: #265bb0; /* Slightly darker shade for hover effect */
 }
 
-/* Popular Trips Section */
-.popular-trips {
-  padding: 50px 20px;
-  text-align: center;
+
+/* Secure Carpooling Section */
+.secure-carpooling {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  padding: 60px 20px;
+  background-color: #f9f9f9;
+  flex-wrap: wrap; /* Ensures responsiveness for smaller screens */
 }
 
-.popular-trips h2 {
-  font-size: 24px;
-  margin-bottom: 30px;
-}
-
-.trips-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 20px;
-}
-
-.trip-card {
-  background-color: white;
-  padding: 15px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+.secure-content {
+  max-width: 600px;
   text-align: left;
 }
 
-.trip-card h3 {
+.secure-title {
+  font-size: 28px;
+  font-weight: bold;
+  color: #0a0354;
+  margin-bottom: 20px;
+}
+
+.secure-description {
+  font-size: 16px;
+  color: #555;
+  line-height: 1.8;
+}
+.secure-image-container {
+  max-width: 400px;
+  flex-shrink: 0;
+}
+
+.secure-image {
+  width: 80%;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+
+/* Popular Destinations */
+.popular-destinations {
+  text-align: center;
+  padding: 40px;
+}
+
+.destinations-container {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+.destination-card img {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+}
+
+.destination-card h3 {
+  font-size: 16px;
   margin: 10px 0;
 }
 
-.trip-card .price {
-  font-weight: bold;
-  color: #007bff;
+.destination-card button {
+  background-color: #007bff;
+  color: white;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
 }
 
-.trip-card .rating {
-  font-size: 14px;
-  color: #777;
+.destination-card button:hover {
+  background-color: #0056b3;
 }
 
 /* Features Section */
 .features-section {
   display: flex;
-  justify-content: space-around;
-  padding: 50px 20px;
+  align-items: center; /* Center items horizontally */
+  text-align: center; /* Center text within items */
+  gap: 20px; /* Spacing between features */
+  padding: 40px;
   background-color: #f9f9f9;
 }
 
+/* Individual Feature Styling */
 .feature {
-  text-align: center;
+  display: flex;
+  flex-direction: column; /* Align icon, heading, and text in a column */
+  align-items: center; /* Center all elements in the feature */
   max-width: 300px;
+}
+
+.feature img {
+  margin-bottom: 10px; /* Spacing between the icon and heading */
 }
 
 .feature h3 {
   font-size: 18px;
+  font-weight: bold;
   margin-bottom: 10px;
 }
 
@@ -119,47 +180,80 @@
 }
 
 /* Steps Section */
-.steps-section {
-  padding: 50px 20px;
-  text-align: center;
-}
-
-.steps-section h2 {
-  font-size: 24px;
-  margin-bottom: 30px;
-}
-
 .steps {
+  display: flex;
+  justify-content: space-around;
+  padding: 40px;
+}
+
+.step img {
+  width: 100px;
+  border-radius: 8px;
+}
+
+#tit3 {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+/* Search Bar Container */
+.search-bar-container {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 20px;
-  flex-wrap: wrap;
+  padding: 10px;
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  max-width: 800px;
+  margin: 0 auto;
 }
 
-.step {
+/* Each Search Bar Item */
+.search-bar-item {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  max-width: 200px;
-  text-align: center;
+  position: relative;
+  margin: 0 10px;
+  flex: 1;
 }
 
-.step-img {
-  width: 120px;
-  height: auto;
-  margin-bottom: 10px;
+/* Inputs and Select */
+.search-bar-item input,
+.search-bar-item select {
+  width: 100%;
+  padding: 10px 10px 10px 30px; /* Padding for icon space */
+  border: 1px solid #ccc;
   border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-.step p {
   font-size: 14px;
-  color: #555;
-  margin-top: 10px;
+  background: #f9f9f9;
 }
 
-.arrow img {
-  width: 50px;
-  height: auto;
+.search-bar-item select {
+  cursor: pointer;
+}
+
+/* Icons */
+.search-bar-item .icon {
+  position: absolute;
+  left: 10px;
+  color: #03541e;
+  font-size: 16px;
+}
+
+/* Search Button */
+.search-btn {
+  background-color: #03541e;
+  color: white;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: bold;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.search-btn:hover {
+  background-color: #02843e;
 }
