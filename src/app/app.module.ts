@@ -11,13 +11,13 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { DrivesComponent } from './components/drives/drives.component';
-import { KeycloakService } from './services/keycloak/keycloak.service';
 import { HttpTokenInterceptor } from './auth/auth.interceptor';
+import { initializeKeycloak } from 'src/init/keycloak-init.factory';
+import { DrivesService } from './services/drives-service.service';
+import { KeycloakService } from 'keycloak-angular';
 //import { CheckoutComponent } from './components/checkout/checkout.component';
 
-export function kcFactory(kcService: KeycloakService) {
-  return () => kcService.init();
-}
+
 
 @NgModule({
   declarations: [
@@ -37,7 +37,8 @@ export function kcFactory(kcService: KeycloakService) {
     RouterModule
   ],
   providers: [
-    provideClientHydration(),
+    
+  
     HttpClient,
     {
       provide: HTTP_INTERCEPTORS,
@@ -47,14 +48,13 @@ export function kcFactory(kcService: KeycloakService) {
     {
       provide: APP_INITIALIZER,
       deps: [KeycloakService],
-      useFactory: kcFactory,
+      useFactory: initializeKeycloak,
       multi: true
-    }
+    },
+    KeycloakService
   ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
-function provideClientHydration(): import("@angular/core").Provider | import("@angular/core").EnvironmentProviders {
-  throw new Error('Function not implemented.');
-}
+
 

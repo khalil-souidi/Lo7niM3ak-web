@@ -1,52 +1,57 @@
-import { Injectable } from '@angular/core';
-import Keycloak from 'keycloak-js';
+import { inject, Injectable } from '@angular/core';
+import { KeycloakService } from 'keycloak-angular';
+import { environment } from '../../../environments/environment';
 import { UserProfile } from './user-profile';
 
 @Injectable({
   providedIn: 'root'
 })
-export class KeycloakService {
-  private _keycloak: Keycloak | undefined;
-  private _profile: UserProfile | undefined;
+export class AuthService {
+  readonly #keycloakService = inject(KeycloakService);
 
-  get keycloak() {
-    if (!this._keycloak) {
-      this._keycloak = new Keycloak({
-        url: 'http://localhost:9000',      
-        realm: 'Hps-microservice',
-        clientId: 'hps-front-end'
-      });
-    }
-    return this._keycloak;
+  private _profile !: UserProfile;
+
+
+  redirectToLoginPage(): Promise<void> {
+    return this.#keycloakService.login();
+  }
+
+  get userName(): string {
+    return this.#keycloakService.getUsername();
   }
 
   get profile(): UserProfile | undefined {
+    this.loadUserProfile();
     return this._profile;
   }
 
-  async init() {
-    const authenticated = await this.keycloak.init({
-      onLoad: 'login-required',
-    });
-
-    if (authenticated) {
-      this._profile = (await this.keycloak.loadUserProfile()) as UserProfile;
-      this._profile.token = this.keycloak.token || '';
-
-      if (this.keycloak.tokenParsed) {
-        const attributes = this.keycloak.tokenParsed['phone'];
-        if (attributes) {
-          this._profile.phone = attributes as string;
-        }
-      }
+  async loadUserProfile() {
+    try {
+      const userProfile = await this.#keycloakService.loadUserProfile();
+      this._profile = {
+        id: userProfile.id,
+        username: userProfile.username,
+        email: userProfile.email,
+        firstName: userProfile.firstName,
+        lastName: userProfile.lastName,
+      };
+      console.log('profile ' + JSON.stringify(this._profile));
+    } catch (error) {
+      console.error('Failed to load user profile', error);
     }
+    return this._profile;
   }
 
-  login() {
-    return this.keycloak.login();
+  isLoggedIn(): boolean {
+    return this.#keycloakService.isLoggedIn();
   }
 
-  logout() {
-    return this.keycloak.logout({ redirectUri: 'http://localhost:4200' });
+  logout(): void {
+    this.#keycloakService.clearToken();
+    this.#keycloakService.logout(environment.keycloak.postLogoutRedirectUri);
+  }
+
+  get token(): any {
+    return this.#keycloakService.getToken();
   }
 }
