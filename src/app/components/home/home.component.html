@@ -1,61 +1,57 @@
 
-  <!-- Hero Section -->
-  <div class="hero-section">
-    <div class="hero-content">
-      <h1 id="tit1">Trouvez le moyen de transport idéal pour vos trajets entre villes</h1>
-      <p>Choisissez le trajet parfait : bus, train ou covoiturage. Économisez, et voyagez facilement !</p>
-      
-      <div class="search-bar-container">
-        <!-- Dropdown for Departure -->
-        <div class="search-bar-item">
-          <select [(ngModel)]="depart" aria-label="Point de départ">
-            <option value="">Départ</option>
-            <option *ngFor="let city of cities" [value]="city">{{ city }}</option>
-          </select>
-          <span class="icon">📍</span>
-        </div>
-      
-        <!-- Dropdown for Destination -->
-        <div class="search-bar-item">
-          <select [(ngModel)]="destination" aria-label="Destination">
-            <option value="">Destination</option>
-            <option *ngFor="let city of cities" [value]="city">{{ city }}</option>
-          </select>
-          <span class="icon">📍</span>
-        </div>
-      
-        <!-- Date Input -->
-        <div class="search-bar-item">
-          <input 
-            type="date" 
-            [(ngModel)]="date" 
-            aria-label="Date du trajet">
-          <span class="icon">📅</span>
-        </div>
-      
-        <!-- Dropdown for Passengers -->
-        <div class="search-bar-item">
-          <select [(ngModel)]="passengers" aria-label="Nombre de passagers">
-            <option value="1">1 adulte</option>
-            <option value="2">2 adultes</option>
-            <option value="3">3 adultes</option>
-          </select>
-          <span class="icon">👤</span>
-        </div>
-      
-        <!-- Search Button -->
-        <button 
-          class="search-btn" 
-          (click)="searchDrives()">
-          🔍 Recherche
-        </button>
+<div class="hero-section">
+  <div class="hero-content">
+    <h1 id="tit1">Trouvez le moyen de transport idéal pour vos trajets entre villes</h1>
+    <p>Choisissez le trajet parfait : bus, train ou covoiturage. Économisez, et voyagez facilement !</p>
+
+    <div class="search-bar-container">
+      <!-- Dropdown for Departure -->
+      <div class="search-bar-item">
+        <select [(ngModel)]="depart" aria-label="Point de départ">
+          <option value="">Départ</option>
+          <option *ngFor="let city of cities" [value]="city">{{ city }}</option>
+        </select>
+        <span class="icon">📍</span>
       </div>
-      
-      
-      
-      
+
+      <!-- Dropdown for Destination -->
+      <div class="search-bar-item">
+        <select [(ngModel)]="destination" aria-label="Destination">
+          <option value="">Destination</option>
+          <option *ngFor="let city of cities" [value]="city">{{ city }}</option>
+        </select>
+        <span class="icon">📍</span>
+      </div>
+
+      <!-- Date Input -->
+      <div class="search-bar-item">
+        <input
+          type="date"
+          [(ngModel)]="date"
+          [min]="currentDate"
+          aria-label="Date du trajet">
+        <span class="icon">📅</span>
+      </div>
+
+      <!-- Dropdown for Passengers -->
+      <div class="search-bar-item">
+        <select [(ngModel)]="passengers" aria-label="Nombre de passagers">
+          <option value="1">1 adulte</option>
+          <option value="2">2 adultes</option>
+          <option value="3">3 adultes</option>
+          <option value="4">4 adultes</option>
+        </select>
+        <span class="icon">👤</span>
+      </div>
+
+      <!-- Search Button -->
+      <button class="search-btn" (click)="searchDrives()">
+        🔍 Recherche
+      </button>
     </div>
   </div>
+</div>
+
 
   <!-- Secure Carpooling Section -->
 <div class="secure-carpooling">
