@@ -5,17 +5,15 @@
       <div class="web-app-badge">Web App</div>
     </div>
     <nav class="header-nav">
-      
-     
-      
-     
     </nav>
     <div class="auth-buttons">
-      <button class="btn" routerLink="/signup">
-        <span class="auth-icon">👤</span> S'inscrire
+    
+      <button class="btn btn-secondary" *ngIf="!isLoggedIn" (click)="login()">
+        <span class="auth-icon">🔑</span> Se connecter / S'inscrire
       </button>
-      <button class="btn btn-secondary" routerLink="/login">
-        <span class="auth-icon">🔑</span> Se connecter
+      
+      <button class="btn btn-secondary" *ngIf="isLoggedIn" (click)="logout()">
+        <span class="auth-icon">🚪</span> Se déconnecter
       </button>
     </div>
   </div>

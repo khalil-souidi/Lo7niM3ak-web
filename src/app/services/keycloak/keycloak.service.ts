@@ -18,6 +18,7 @@ export class AuthService {
 
   get userName(): string {
     return this.#keycloakService.getUsername();
+
   }
 
   get profile(): UserProfile | undefined {

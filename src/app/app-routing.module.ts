@@ -7,9 +7,8 @@ import { ReservationDetailsComponent } from './components/reservation-details/re
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'drives', component: DrivesComponent, canActivate: [authGuard]},
   { path: 'reservation-details', component: ReservationDetailsComponent},
-
+  { path: 'drives', component: DrivesComponent},// canActivate: [authGuard],
   { path: '**', redirectTo: '' }
 ];
 

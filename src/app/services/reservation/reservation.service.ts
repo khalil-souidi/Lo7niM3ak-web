@@ -4,11 +4,11 @@ import { Observable } from 'rxjs';
 import { ReservationDto } from 'src/app/models/ReservationDto';
 
 @Injectable({
-  providedIn: 'root'  // This ensures the service is provided at the root level
+  providedIn: 'root' 
 })
 export class ReservationService {
 
-  private apiUrl = 'http://localhost:8080/api/v1/reservations'; // Correct base URL
+  private apiUrl = 'http://localhost:8080/api/v1/reservations'; 
 
   constructor(private http: HttpClient) { }
 

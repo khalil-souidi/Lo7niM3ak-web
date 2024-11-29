@@ -38,8 +38,7 @@ import { ReservationDetailsComponent } from './components/reservation-details/re
     RouterModule
   ],
   providers: [
-    
-  
+
     HttpClient,
     {
       provide: HTTP_INTERCEPTORS,

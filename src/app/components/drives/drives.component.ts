@@ -5,6 +5,7 @@ import { User } from 'src/app/models/User';
 import { DrivesService } from 'src/app/services/drives/drives-service.service';
 import { ReviewService } from 'src/app/services/reviews/reviews.service';
 import { UserService } from 'src/app/services/user/user.service';
+import { AuthService } from 'src/app/services/keycloak/keycloak.service'; // Import AuthService
 
 @Component({
   selector: 'app-drives',
@@ -22,19 +23,34 @@ export class DrivesComponent implements OnInit {
   destination: string = '';
   currentDateTime: Date = new Date();
   currentDate: string;
+  user!: User;
+  authService: AuthService;
 
   constructor(
     private drivesService: DrivesService,
     private userService: UserService,
     private reviewService: ReviewService,
     private route: ActivatedRoute,
-    private router : Router
+    private router : Router,
+    authService: AuthService
   ) {
+    this.authService = authService; // Store the instance of AuthService
     const today = new Date();
     this.currentDate = today.toISOString().split('T')[0];
   }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
+    const isLoggedIn = await this.authService.isLoggedIn(); 
+    if (isLoggedIn) {
+      console.log('Connecté');
+      this.userService.user$.subscribe(response => {
+        this.user = response;
+      });
+    } else {
+      console.log('Non connecté');
+    }
+
+    // Fetch query parameters
     this.route.queryParams.subscribe((params) => {
       this.depart = params['depart'] || '';
       this.destination = params['destination'] || '';
@@ -43,6 +59,7 @@ export class DrivesComponent implements OnInit {
       this.fetchDrives();
     });
   }
+
   fetchDrives(): void {
     this.drivesService.getAllDrives().subscribe((drives: Drive[]) => {
       drives.forEach((drive) => {
@@ -86,11 +103,19 @@ export class DrivesComponent implements OnInit {
       return matchesDeparture && matchesArrival && matchesSeats && matchesDate && isFutureDrive;
     });
   }
+
   generateStars(avgNote: number): number[] {
     const fullStars = Math.floor(avgNote); 
     return Array(fullStars).fill(1); 
   }
-  reserveDrive(drive: Drive): void {
+
+  async reserveDrive(drive: Drive): Promise<void> {
+    const isLoggedIn = await this.authService.isLoggedIn(); // Check if the user is logged in
+    if (!isLoggedIn) {
+      await this.authService.redirectToLoginPage(); // Redirect to login if not logged in
+      return;
+    }
+
     this.router.navigate(['/reservation-details'], { queryParams: { driveId: drive.id, price: drive.price } });
   }
 }
