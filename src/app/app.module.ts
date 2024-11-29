@@ -14,6 +14,7 @@ import { HttpTokenInterceptor } from './auth/auth.interceptor';
 import { initializeKeycloak } from 'src/init/keycloak-init.factory';
 import { KeycloakService } from 'keycloak-angular';
 import { DrivesComponent } from './components/drives/drives.component';
+import { ReservationDetailsComponent } from './components/reservation-details/reservation-details.component';
 //import { CheckoutComponent } from './components/checkout/checkout.component';
 
 
@@ -25,6 +26,7 @@ import { DrivesComponent } from './components/drives/drives.component';
     FooterComponent,
     HomeComponent,
     DrivesComponent,
+    ReservationDetailsComponent,
    // CheckoutComponent
   ],
   imports: [

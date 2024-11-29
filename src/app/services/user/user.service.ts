@@ -25,8 +25,9 @@ export class UserService {
   getUserById(id: number): Observable<User> {
     return this.http.get<User>(`${this.apiUrl}/${id}`);
   }
+  
 
-  getUserByMail(email: string | undefined): Observable<User> {
+  getUserByMail(): Observable<User> {
     return new Observable<User>(observer => {
       this.authService.loadUserProfile()
         .then(profile => {

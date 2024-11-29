@@ -16,6 +16,10 @@
             "outputPath": "dist/lo7ni-m3ak-web",
             "index": "src/index.html",
             "main": "src/main.ts",
+            "allowedCommonJsDependencies": [
+              "base64-js",
+              "js-sha256"
+            ],
             "polyfills": [
               "zone.js"
             ],

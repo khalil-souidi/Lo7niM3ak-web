@@ -1,0 +1,24 @@
+<div class="reservation-details-container" *ngIf="drive">
+  <h2>Réservation de Trajet</h2>
+
+  <div class="drive-details">
+    <p><strong>Trajet:</strong> {{ drive.pickup }} → {{ drive.destination }}</p>
+    <p><strong>Date de départ:</strong> {{ drive.deptime | date: 'dd/MM/yyyy' }}</p>
+    <p><strong>Prix par siège:</strong> {{ drive.price | currency: 'MAD' }}</p>
+
+    <!-- Seats Selection -->
+    <div>
+      <label for="seats">Nombre de sièges:</label>
+      <input type="number" id="seats" [(ngModel)]="selectedSeats" min="1" [max]="drive.seating" (input)="updateTotalPrice()" />
+    </div>
+
+    <p><strong>Total:</strong> {{ totalPrice | currency: 'MAD' }}</p>
+
+    <button class="complete-reservation" (click)="completeReservation()">Compléter la réservation</button>
+  </div>
+</div>
+
+<!-- Show a loading message if drive data is not available yet -->
+<div *ngIf="!drive">
+  <p>Chargement des détails du trajet...</p>
+</div>

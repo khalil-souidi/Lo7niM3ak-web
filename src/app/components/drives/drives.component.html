@@ -42,6 +42,8 @@
           <p class="description"><i class="fas fa-info-circle"></i> {{ drive.description }}</p>
           <p class="price bold"><i class="fas fa-coins"></i> {{ drive.price | currency:'MAD':'symbol':'1.0-0' }}</p>
           <p class="seats bold"><i class="fas fa-users"></i> Places disponibles: {{ drive.seating }}</p>
+          <!-- Add Departure Date -->
+          <p class="departure-date bold"><i class="fas fa-calendar"></i> Date de départ: {{ drive.deptime | date:'dd/MM/yyyy' }}</p>
         </div>
       </div>
 
@@ -61,11 +63,11 @@
           </div>
         </div>
       </div>
-      
 
       <!-- Reserve Button -->
-      <button class="reserve-button"><i class="fas fa-check-circle"></i> Réserver ce trajet</button>
+      <button class="reserve-button" (click)="reserveDrive(drive)">
+        <i class="fas fa-check-circle"></i> Réserver ce trajet
+      </button>
     </div>
   </div>
 </div>
-

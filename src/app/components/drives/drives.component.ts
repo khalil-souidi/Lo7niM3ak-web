@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Drive } from 'src/app/models/Drives';
 import { User } from 'src/app/models/User';
 import { DrivesService } from 'src/app/services/drives/drives-service.service';
@@ -27,7 +27,8 @@ export class DrivesComponent implements OnInit {
     private drivesService: DrivesService,
     private userService: UserService,
     private reviewService: ReviewService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router : Router
   ) {
     const today = new Date();
     this.currentDate = today.toISOString().split('T')[0];
@@ -86,7 +87,10 @@ export class DrivesComponent implements OnInit {
     });
   }
   generateStars(avgNote: number): number[] {
-    const fullStars = Math.floor(avgNote); // Convert avgNote to the nearest lower integer
-    return Array(fullStars).fill(1); // Create an array of fullStars length
+    const fullStars = Math.floor(avgNote); 
+    return Array(fullStars).fill(1); 
+  }
+  reserveDrive(drive: Drive): void {
+    this.router.navigate(['/reservation-details'], { queryParams: { driveId: drive.id, price: drive.price } });
   }
 }
