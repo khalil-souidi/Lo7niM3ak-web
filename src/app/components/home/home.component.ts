@@ -1,8 +1,5 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { User } from 'src/app/models/User';
-import { AuthService } from 'src/app/services/keycloak/keycloak.service';
-import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
   selector: 'app-home',
@@ -19,37 +16,26 @@ export class HomeComponent implements OnInit {
   destination: string = '';
   date: string = '';
   passengers: number = 1;
-  user!: User;
 
-  authService = inject(AuthService);
-  userService = inject(UserService);
+  currentDate: any;
 
   constructor(private router: Router) {}
 
-  async ngOnInit(): Promise<void> {
-    const isLoggedIn = await this.authService.isLoggedIn(); 
-    if (isLoggedIn) {
-      console.log('Connecté');
-      this.userService.user$.subscribe(response => {
-        this.user = response;
-      });
-    } else {
-      console.log('Non connecté');
-    }
+  ngOnInit(): void {
+    // Initialize the current date
+    const today = new Date();
+    this.currentDate = today.toISOString().split('T')[0];
   }
 
-  async searchDrives(): Promise<void> {
-    const isLoggedIn = await this.authService.isLoggedIn(); // Await the Promise
-    if (!isLoggedIn) {
-      await this.authService.redirectToLoginPage();
-      return;
-    }
-
+  // Corrected return type for the method
+  searchDrives(): void {
+    // Check if all necessary fields are filled
     if (!this.depart || !this.destination) {
       alert('Veuillez remplir tous les champs pour la recherche.');
       return;
     }
 
+    // Navigate to the drives page with query parameters
     this.router.navigate(['/drives'], {
       queryParams: {
         depart: this.depart,
