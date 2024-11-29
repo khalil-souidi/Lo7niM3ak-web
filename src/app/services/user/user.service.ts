@@ -1,8 +1,8 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, Observable } from "rxjs";
-import { User } from "../models/User";
-import { AuthService } from "./keycloak/keycloak.service";
+import { User } from "src/app/models/User";
+import { AuthService } from "../keycloak/keycloak.service";
 
 @Injectable({
   providedIn: 'root'
@@ -22,6 +22,10 @@ export class UserService {
   resetCurrentUser(){
     this.userSubject.next(null);
   }
+  getUserById(id: number): Observable<User> {
+    return this.http.get<User>(`${this.apiUrl}/${id}`);
+  }
+
   getUserByMail(email: string | undefined): Observable<User> {
     return new Observable<User>(observer => {
       this.authService.loadUserProfile()

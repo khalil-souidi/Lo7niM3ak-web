@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Drive } from '../models/Drives';
+import { Drive } from 'src/app/models/Drives';
 
 @Injectable({
   providedIn: 'root'

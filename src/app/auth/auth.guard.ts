@@ -20,9 +20,9 @@ import { AuthService } from '../services/keycloak/keycloak.service';
 //     }
 //   }
 
-export const authGuard: CanActivateFn = () => {
+export const authGuard: CanActivateFn = async () => {
   const authService = inject(AuthService);
-  if (authService.isLoggedIn()) {
+  if (await authService.isLoggedIn()) {
     return true;
   }
   authService.redirectToLoginPage();

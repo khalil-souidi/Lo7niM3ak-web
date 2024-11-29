@@ -42,7 +42,7 @@ export class AuthService {
     return this._profile;
   }
 
-  isLoggedIn(): boolean {
+  async isLoggedIn(): Promise<boolean> {
     return this.#keycloakService.isLoggedIn();
   }
 
@@ -55,3 +55,5 @@ export class AuthService {
     return this.#keycloakService.getToken();
   }
 }
+
+

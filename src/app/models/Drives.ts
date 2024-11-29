@@ -10,5 +10,6 @@ export interface Drive {
     seating: number;
     description: string;
     driverId: number
+    driver?: User;
+    avgNote?: number;
   }
-  

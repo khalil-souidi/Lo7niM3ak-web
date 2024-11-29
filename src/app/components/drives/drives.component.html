@@ -1,12 +1,71 @@
-<div class="drives-container">
-  <h2>Résultats de recherche</h2>
-  <p *ngIf="filteredDrives.length === 0">Aucun trajet trouvé pour votre recherche.</p>
-  <div *ngFor="let drive of filteredDrives" class="drive-card">
-    <h3>{{ drive.pickup }} ➡️ {{ drive.destination }}</h3>
-    <p><strong>Date :</strong> {{ drive.deptime | date:'short' }}</p>
-    <p><strong>Prix :</strong> {{ drive.price | currency:'EUR' }}</p>
-    <p><strong>Places disponibles :</strong> {{ drive.seating }}</p>
-    <p>{{ drive.description }}</p>
-    <button>Réserver ce trajet</button>
+<div class="search-results-container">
+  <!-- Filter Sidebar -->
+  <div class="filter-sidebar">
+    <h4>Filtrer vos trajets</h4>
+    <div class="filter-section">
+      <label for="seats">Nombre de sièges</label>
+      <input type="number" id="seats" [(ngModel)]="filters.seats" min="1" />
+    </div>
+    <div class="filter-section">
+      <label for="date">Date</label>
+      <input type="date" id="date" [(ngModel)]="filters.date" [min]="currentDate" />
+    </div>
+    <button class="apply-filter-button" (click)="applyFilters()">Appliquer les filtres</button>
+  </div>
+
+  <!-- Results Section -->
+  <div class="drives-container">
+    <h2 class="section-title">Résultats de recherche</h2>
+    <p *ngIf="filteredDrives.length === 0" class="no-results">Aucun trajet trouvé pour votre recherche.</p>
+
+    <div *ngFor="let drive of filteredDrives" class="drive-card">
+      <!-- Header Section -->
+      <div class="drive-card-header">
+        <div class="card-left">
+          <div class="location">
+            <p class="bold"><i class="fas fa-location-arrow"></i> {{ drive.pickup }}</p>
+          </div>
+          <div class="line-indicator">
+            <span class="circle"></span>
+            <span class="dashed-line"></span>
+            <span class="circle"></span>
+          </div>
+          <div class="location">
+            <p class="bold"><i class="fas fa-map-signs"></i> {{ drive.destination }}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Drive Details -->
+      <div class="drive-card-body">
+        <div class="details">
+          <p class="description"><i class="fas fa-info-circle"></i> {{ drive.description }}</p>
+          <p class="price bold"><i class="fas fa-coins"></i> {{ drive.price | currency:'MAD':'symbol':'1.0-0' }}</p>
+          <p class="seats bold"><i class="fas fa-users"></i> Places disponibles: {{ drive.seating }}</p>
+        </div>
+      </div>
+
+      <!-- Driver Information -->
+      <div class="driver-info" *ngIf="drive.driver">
+        <h4 class="driver-title"><i class="fas fa-user-circle"></i> Informations du conducteur</h4>
+        <div class="driver-details">
+          <p><i class="fas fa-user"></i> Nom: {{ drive.driver.name }}</p>
+          <p><i class="fas fa-envelope"></i> Email: {{ drive.driver.email }}</p>
+          <p><i class="fas fa-phone"></i> Téléphone: {{ drive.driver.phone }}</p>
+          <div class="driver-rating" *ngIf="drive.avgNote !== undefined">
+            <i class="fas fa-star" *ngFor="let star of generateStars(drive.avgNote)"></i>
+            <span>⭐{{ drive.avgNote | number: '1.1-1' }}</span>
+          </div>
+          <div class="driver-rating" *ngIf="drive.avgNote === undefined">
+            <span>Note Moyenne: Non disponible</span>
+          </div>
+        </div>
+      </div>
+      
+
+      <!-- Reserve Button -->
+      <button class="reserve-button"><i class="fas fa-check-circle"></i> Réserver ce trajet</button>
+    </div>
   </div>
 </div>
+
