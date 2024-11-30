@@ -1,0 +1,130 @@
+.payment-modal {
+    width: 400px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+    padding: 20px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Roboto', sans-serif;
+  }
+  
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .modal-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #34495e;
+  }
+  
+  .close-button {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: #34495e;
+  }
+  
+  .modal-body {
+    margin-bottom: 20px;
+  }
+  
+  .card-input-group {
+    margin-bottom: 15px;
+  }
+  
+  .card-input-group label {
+    font-size: 14px;
+    color: #34495e;
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .card-input {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    background: #f9f9f9;
+  }
+  
+  .card-input input {
+    border: none;
+    outline: none;
+    flex: 1;
+  }
+  
+  .card-input .card-type {
+    font-size: 12px;
+    color: #34495e;
+    margin-left: 10px;
+  }
+  
+  .card-details {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .card-details div {
+    flex: 1;
+  }
+  
+  .card-details label {
+    font-size: 14px;
+    color: #34495e;
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .card-details input {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  .country-input {
+    margin-top: 15px;
+  }
+  
+  .country-input label {
+    font-size: 14px;
+    color: #34495e;
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .country-input select {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    width: 100%;
+  }
+  
+  .modal-footer {
+    text-align: center;
+  }
+  
+  .confirm-button {
+    background: #34495e;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  
+  .confirm-button:hover {
+    background: #2c3e50;
+  }
+  

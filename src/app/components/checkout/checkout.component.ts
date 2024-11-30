@@ -1,84 +1,93 @@
-// import { Component, Inject, OnInit } from '@angular/core';
-// import { CheckoutService } from "../../services/checkout.service";
-// import { environment } from '../../../../environments/environment';
-// import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
-// import { OtpVerificationComponent } from '../otp-verification/otp-verification.component';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Stripe, loadStripe, Appearance } from '@stripe/stripe-js';
+import { environment } from 'environments/environment';
+import { ReservationService } from 'src/app/services/reservation/reservation.service';
 
-// @Component({
-//   selector: 'app-checkout',
-//   templateUrl: './checkout.component.html',
-//   styleUrls: ['./checkout.component.css']
-// })
-// export class CheckoutComponent implements OnInit {
-//   ngOnInit(): void {
-//     throw new Error('Method not implemented.');
-//   }
+@Component({
+  selector: 'app-checkout',
+  templateUrl: './checkout.component.html',
+  styleUrls: ['./checkout.component.css'],
+})
+export class CheckoutComponent implements OnInit {
+  stripe!: Stripe | null;
+  cardElement: any;
+  elements!: any;
+  displayError: any;
+  isFormValid: boolean = false;
+  isLoading: boolean = false;
 
-//   // stripe = Stripe(environment.stripePublishableKey);
-//   // cardElement: any;
-//   // displayError: any;
-//   // elements!: any;
-//   // otpMsg!: string;
-//   // isFormValid: boolean = false; // Add a flag to track form validity
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: { reservationId: number; clientSecret: string; amount: number; email: string },
+    private dialogRef: MatDialogRef<CheckoutComponent>,
+    private reservationService: ReservationService
+  ) {}
 
-//   // constructor(
-//   //   private checkoutService: CheckoutService,
-//   //   public dialogRef: MatDialogRef<CheckoutComponent>,
-//   //   @Inject(MAT_DIALOG_DATA) public data: {secretKey : string, phone: string},  private dialog: MatDialog,
-//   // ) {}
+  async ngOnInit(): Promise<void> {
+    this.stripe = await loadStripe(environment.stripePublishableKey);
 
-//   // ngOnInit(): void {
-//   //   console.log('phone ' + this.data.phone);
-//   //   console.log('secret  ' + this.data.secretKey);
-    
-//   //   if (this.data.secretKey) {
-//   //     this.setupStripePaymentForm();
-//   //   }
-//   // }
+    if (this.stripe) {
+      this.setupStripePaymentForm();
+    } else {
+      console.error('Stripe failed to load.');
+    }
+  }
 
-//   // private setupStripePaymentForm() {
-//   //   const appearance = {
-//   //     theme: 'night',
-//   //     labels: 'floating'
-//   //   };
-//   //   this.elements = this.stripe.elements({ clientSecret: this.data.secretKey, appearance: appearance });
-//   //   this.cardElement = this.elements.create('payment');
-//   //   this.cardElement.mount('#card-element');
-//   //   this.cardElement.on('change', (event: any) => {
-//   //     this.displayError = document.getElementById('card-errors');
+  private setupStripePaymentForm() {
+    const appearance: Appearance = {
+      theme: 'flat',
+      labels: 'floating',
+    };
+    this.elements = this.stripe!.elements({ appearance });
+    this.cardElement = this.elements.create('card');
+    this.cardElement.mount('#card-element');
 
-//   //     if (event.complete) {
-//   //       this.displayError.textContent = "";
-//   //       this.isFormValid = true; // Mark form as valid if complete
-//   //     } else if (event.error) {
-//   //       this.displayError.textContent = event.error.message;
-//   //       this.isFormValid = false; // Mark form as invalid if there's an error
-//   //     }
-//   //   });
-//   // }
+    this.cardElement.on('change', (event: any) => {
+      this.displayError = document.getElementById('card-errors');
+      if (event.error) {
+        this.displayError.textContent = event.error.message;
+        this.isFormValid = false;
+      } else {
+        this.displayError.textContent = '';
+        this.isFormValid = true;
+      }
+    });
+  }
 
+  payBill(): void {
+    if (!this.isFormValid) {
+      return;
+    }
 
-//   // payBill() {
-//   //   if (!this.isFormValid) {
-//   //     console.log('Form is invalid. Please fix the errors before proceeding.');
-//   //     return;
-//   //   }
+    this.isLoading = true;
 
-//   //   const phoneNumber = this.data.phone;
-//   //   this.checkoutService.payBill({ phone: phoneNumber }).subscribe(response => {
-//   //     console.log('paybill response: ' + response?.message);
-//   //     this.dialog.open(OtpVerificationComponent, {
-//   //       data: { stripe: this.stripe, elements: this.elements, phone: phoneNumber },
-//   //       width: '800px',
-//   //       height: '500px',
-//   //       disableClose: true
-//   //     });
-//   //   });
-//   // }
+    this.stripe!.confirmCardPayment(this.data.clientSecret, {
+      payment_method: {
+        card: this.cardElement,
+        billing_details: {
+          email: this.data.email,
+        },
+      },
+    }).then((result) => {
+      this.isLoading = false;
 
-//   // closeDialog(){
-//   //   this.dialogRef.close();
-//   //   this.checkoutService.deleteBill().subscribe();
-//   // }
+      if (result.error) {
+        this.displayError.textContent = result.error.message;
+      } else {
+        this.reservationService.confirmPayment(this.data.reservationId, result.paymentIntent.id).subscribe(
+          (response: any) => {
+            console.log('Payment confirmed:', response.message); 
+            this.dialogRef.close('paymentSuccess');
+          },
+          (error) => {
+            console.error('Error confirming payment:', error);
+          }
+        );
+      }
+    });
+  }
 
-// }
+  closeDialog(): void {
+    this.dialogRef.close('paymentCanceled');
+  }
+}

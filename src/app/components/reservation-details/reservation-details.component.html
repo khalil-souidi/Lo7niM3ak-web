@@ -9,11 +9,19 @@
     <!-- Seats Selection -->
     <div>
       <label for="seats">Nombre de sièges:</label>
-      <input type="number" id="seats" [(ngModel)]="selectedSeats" min="1" [max]="drive.seating" (input)="updateTotalPrice()" />
+      <input
+        type="number"
+        id="seats"
+        [(ngModel)]="selectedSeats"
+        min="1"
+        [max]="drive.seating"
+        (input)="updateTotalPrice()"
+      />
     </div>
 
     <p><strong>Total:</strong> {{ totalPrice | currency: 'MAD' }}</p>
 
+    <!-- Trigger the completeReservation method instead of relying on pre-existing billId -->
     <button class="complete-reservation" (click)="completeReservation()">Compléter la réservation</button>
   </div>
 </div>

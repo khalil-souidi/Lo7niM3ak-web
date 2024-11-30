@@ -1,99 +1,113 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
 import { ReservationDto } from 'src/app/models/ReservationDto';
-import { Drive } from 'src/app/models/Drives';
 import { ReservationService } from 'src/app/services/reservation/reservation.service';
-import { DrivesService } from 'src/app/services/drives/drives-service.service';
-import { User } from 'src/app/models/User';
+import { CheckoutComponent } from '../checkout/checkout.component';
 import { AuthService } from 'src/app/services/keycloak/keycloak.service';
+import { User } from 'src/app/models/User';
 import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
   selector: 'app-reservation-details',
   templateUrl: './reservation-details.component.html',
-  styleUrls: ['./reservation-details.component.css']
+  styleUrls: ['./reservation-details.component.css'],
 })
 export class ReservationDetailsComponent implements OnInit {
-  drive: Drive | undefined;
-  selectedSeats: number = 1;
-  totalPrice: number | undefined;
+  user!: User | null;
+  drive: any;
   driveId: number | undefined;
   price!: number;
-  user!: User | null; // Allow user to be null initially
+  selectedSeats: number = 1;
+  totalPrice!: number;
 
   constructor(
     private route: ActivatedRoute,
     private reservationService: ReservationService,
-    private drivesService: DrivesService,
-    private router: Router,
+    private dialog: MatDialog,
     private authService: AuthService,
-    private userService: UserService
+    private userService: UserService,
+    private router: Router
   ) {}
 
   async ngOnInit(): Promise<void> {
     const isLoggedIn = await this.authService.isLoggedIn();
     if (isLoggedIn) {
-      console.log('User is logged in');
       this.userService.getUserByMail().subscribe(
         (response: User) => {
-          this.userService.setCurrentUser(response); // Save the user to BehaviorSubject
-          this.user = response; // Set user locally in the component
-          console.log('User Info: ', this.user);
+          this.user = response;
         },
         (error) => {
           console.error('Error fetching user:', error);
-          alert('Error fetching user information.');
         }
       );
-    } else {
-      console.log('User is not logged in');
     }
 
-    this.route.queryParams.subscribe(params => {
+    this.route.queryParams.subscribe((params) => {
       this.driveId = params['driveId'];
       this.price = params['price'];
       this.totalPrice = this.price * this.selectedSeats;
 
-      if (this.driveId) {
-        this.fetchDriveDetails();
-      }
+      this.fetchDriveDetails();
     });
   }
 
   fetchDriveDetails(): void {
-    this.drivesService.getDriveById(this.driveId!).subscribe(
-      (drive: Drive) => {
-        this.drive = drive;  // Assign the fetched drive to the component's drive property
-      },
-      (error) => {
-        console.error('Error fetching drive details:', error);
-      }
-    );
+    this.drive = {
+      pickup: 'Casablanca',
+      destination: 'Rabat',
+      deptime: new Date(),
+      price: this.price,
+      seating: 5,
+    };
   }
 
   completeReservation(): void {
     if (!this.user) {
       alert('You must be logged in to complete the reservation.');
-      return; // Prevent reservation if user is not available
+      return;
     }
 
     const reservation: ReservationDto = {
       seats: this.selectedSeats,
       driveId: this.driveId!,
-      userId: this.user.id // Ensure the user ID is available
+      userId: this.user.id,
     };
 
     this.reservationService.addReservation(reservation).subscribe(
-      (response) => {
-        console.log('Reservation created successfully', response);
-        alert('Réservation réussie!');
-        this.router.navigate(['/home']);
+      (reservationResponse: any) => {
+        console.log('Reservation response:', reservationResponse);
+
+        this.reservationService.createPaymentIntent(reservationResponse.id).subscribe(
+          (paymentIntentResponse: any) => {
+            console.log('Payment Intent response:', paymentIntentResponse);
+            this.openPaymentDialog(reservationResponse.id, paymentIntentResponse.client_secret);
+          },
+          (error) => {
+            console.error('Error creating payment intent:', error);
+          }
+        );
       },
       (error) => {
-        console.error('Error creating reservation', error);
-        alert('Erreur lors de la réservation.');
+        console.error('Error creating reservation:', error);
       }
     );
+  }
+
+  openPaymentDialog(reservationId: number, clientSecret: string): void {
+    const dialogRef = this.dialog.open(CheckoutComponent, {
+      data: { reservationId, clientSecret, amount: this.totalPrice, email: this.user?.email },
+      width: '800px',
+      disableClose : true
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result === 'paymentSuccess') {
+        this.router.navigate(['/home']);
+      } else {
+        alert('Payment canceled or failed.');
+      }
+    });
   }
 
   updateTotalPrice(): void {

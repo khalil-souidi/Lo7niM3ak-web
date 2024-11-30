@@ -31,12 +31,19 @@ export class ReservationService {
   }
 
   // Create a payment intent (Stripe)
-  createPaymentIntent(billId: number): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/create-payment-intent/${billId}`, {});
+  createPaymentIntent(reservationId: number): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/${reservationId}/payment-intent`, {});
   }
 
-  // Confirm payment (Stripe)
-  confirmPayment(paymentIntentId: string, billId: number): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/confirm-payment?paymentIntentId=${paymentIntentId}&billId=${billId}`, {});
+  confirmPayment(reservationId: number, paymentIntentId: string): Observable<any> {
+    return this.http.post<any>(
+      `${this.apiUrl}/${reservationId}/confirm-payment?paymentIntentId=${paymentIntentId}`,
+      {}
+    );
   }
+  createBill(reservation: ReservationDto): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/create-bill`, reservation);
+  }
+  
+  
 }

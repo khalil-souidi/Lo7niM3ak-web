@@ -3,5 +3,6 @@ export class ReservationDto {
     seats?: number;
     driveId?: number;
     userId?: number;
+    billId?: number;
   }
   

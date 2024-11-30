@@ -1,21 +1,37 @@
-<div class="flex justify-content-end">
-    <button mat-icon-button class="m-2" (click)="closeDialog()">
-      <mat-icon>close</mat-icon>
-    </button>
+<div class="payment-modal">
+  <div class="modal-header">
+    <h3 class="modal-title">Credit or Debit Card</h3>
+    <button class="close-button" (click)="closeDialog()">&times;</button>
   </div>
-  <div id="creditCard" class="form-area">
-    <h3 class="text-2xl font-bold text-center">Credit or Debit Card</h3>
-  
-    <div id="card-element">
-      <!-- a Stripe element will be inserted here -->
+  <div class="modal-body">
+    <div class="card-input-group">
+      <label for="card-number">Numéro de carte</label>
+      <div class="card-input">
+        <input id="card-number" type="text" placeholder="4242 4242 4242 4242" />
+        <span class="card-type">VISA</span>
+      </div>
     </div>
-  
-    <!-- Used to display form errors -->
-    <div [ngClass]="displayError?.textContent !== '' ? 'alert alert-danger mt-1' : ''" id="card-errors">
+    <div class="card-details">
+      <div>
+        <label for="expiry-date">Date d'expiration</label>
+        <input id="expiry-date" type="text" placeholder="MM / YY" />
+      </div>
+      <div>
+        <label for="security-code">Code de sécurité</label>
+        <input id="security-code" type="text" placeholder="CVC" />
+      </div>
+    </div>
+    <div class="country-input">
+      <label for="country">Pays</label>
+      <select id="country">
+        <option>Maroc</option>
+        <option>France</option>
+        <option>États-Unis</option>
+        <!-- Add more countries -->
+      </select>
     </div>
   </div>
-  <button class="preview-button absolute bottom-0 left-0 right-0 bg-[#1d3a5c] text-white py-2" 
-          (click)="payBill()" 
-          [disabled]="!isFormValid">Confirm Payment
-  </button>
-  
+  <div class="modal-footer">
+    <button class="confirm-button" (click)="payBill()">Confirm Payment</button>
+  </div>
+</div>

@@ -15,7 +15,11 @@ import { initializeKeycloak } from 'src/init/keycloak-init.factory';
 import { KeycloakService } from 'keycloak-angular';
 import { DrivesComponent } from './components/drives/drives.component';
 import { ReservationDetailsComponent } from './components/reservation-details/reservation-details.component';
-//import { CheckoutComponent } from './components/checkout/checkout.component';
+import { CheckoutComponent } from './components/checkout/checkout.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
+
+
 
 
 
@@ -27,15 +31,17 @@ import { ReservationDetailsComponent } from './components/reservation-details/re
     HomeComponent,
     DrivesComponent,
     ReservationDetailsComponent,
-   // CheckoutComponent
+    CheckoutComponent
   ],
   imports: [
     BrowserModule,
+    MatIconModule,
     AppRoutingModule,
     FormsModule,
     CommonModule,
     HttpClientModule,
-    RouterModule
+    RouterModule,
+    MatDialogModule,
   ],
   providers: [
 
