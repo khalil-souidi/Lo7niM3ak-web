@@ -1,0 +1,116 @@
+/* General Popup Background */
+.reservation-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6); /* Semi-transparent background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+/* Popup Content Styling */
+.reservation-popup-content {
+    background: #ffffff; /* Neutral white background */
+    color: #333; /* Dark text color */
+    border-radius: 10px;
+    padding: 25px;
+    width: 400px;
+    max-width: 90%;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    position: relative;
+    text-align: center;
+}
+
+/* Close Button Styling */
+.close-popup {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #e0e0e0; /* Light gray background */
+    color: #333; /* Dark text color */
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    font-size: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.close-popup:hover {
+    background-color: #d6d6d6; /* Slightly darker gray */
+}
+
+/* Heading Styling */
+.reservation-popup-content h2 {
+    font-size: 1.5em;
+    margin-bottom: 15px;
+    color: #2d3df0; /* Primary blue */
+}
+
+/* Drive Details Styling */
+.drive-details {
+    margin: 20px 0;
+    text-align: left;
+    font-size: 1em;
+    color: #555; /* Medium gray text */
+}
+
+/* Seats Selection */
+.seats-selection {
+    margin: 15px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.seats-selection label {
+    font-size: 1em;
+    font-weight: bold;
+    color: #333; /* Dark text */
+}
+
+.seats-selection input {
+    width: 60px;
+    padding: 5px;
+    border: 1px solid #ccc; /* Neutral border */
+    border-radius: 5px;
+    font-size: 1em;
+    text-align: center;
+    background: #f9f9f9; /* Light gray background */
+    color: #333; /* Dark text */
+}
+
+/* Total Price */
+.total-price {
+    margin: 20px 0;
+    font-size: 1.1em;
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+    color: #333; /* Dark text */
+}
+
+/* Complete Reservation Button */
+.complete-reservation {
+    background-color: #2d3df0; /* Primary blue */
+    color: #fff; /* White text */
+    border: none;
+    padding: 10px 20px;
+    font-size: 1.1em;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.complete-reservation:hover {
+    background-color: #1f2fbf; /* Darker blue on hover */
+    transform: translateY(-3px);
+}

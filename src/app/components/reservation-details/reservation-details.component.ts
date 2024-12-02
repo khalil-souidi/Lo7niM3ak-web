@@ -20,6 +20,9 @@ export class ReservationDetailsComponent implements OnInit {
   price!: number;
   selectedSeats: number = 1;
   totalPrice!: number;
+  showPopup: boolean = true; // Property to toggle popup visibility
+  seatError: boolean = false; // Error state for invalid seat selection
+
 
   constructor(
     private route: ActivatedRoute,
@@ -27,7 +30,7 @@ export class ReservationDetailsComponent implements OnInit {
     private dialog: MatDialog,
     private authService: AuthService,
     private userService: UserService,
-    private router: Router
+    private router: Router,
   ) {}
 
   async ngOnInit(): Promise<void> {
@@ -62,6 +65,15 @@ export class ReservationDetailsComponent implements OnInit {
     };
   }
 
+  validateSeats(): void {
+    if (this.selectedSeats > this.drive.seating) {
+      this.seatError = true;
+    } else {
+      this.seatError = false;
+      this.updateTotalPrice();
+    }
+  }
+  
   completeReservation(): void {
     if (!this.user) {
       alert('You must be logged in to complete the reservation.');

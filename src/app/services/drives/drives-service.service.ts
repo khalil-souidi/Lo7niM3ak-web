@@ -19,6 +19,10 @@ export class DrivesService {
   }
 
   getDriveById(driveId: number): Observable<Drive> {
-    return this.http.get<Drive>(`http://localhost:8080/api/v1/findDriveById/${driveId}`);
+    return this.http.get<Drive>(`http://localhost:8080/api/v1/drives/findDriveById/${driveId}`);
   }
+  getDrivesByUserId(userId: number): Observable<any[]> {
+    return this.http.get<any[]>(`${this.baseUrl}/findListDriveByUserId/${userId}`);
+  }
+  
 }

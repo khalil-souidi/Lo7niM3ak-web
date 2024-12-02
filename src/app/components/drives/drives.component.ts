@@ -110,9 +110,9 @@ export class DrivesComponent implements OnInit {
   }
 
   async reserveDrive(drive: Drive): Promise<void> {
-    const isLoggedIn = await this.authService.isLoggedIn(); // Check if the user is logged in
+    const isLoggedIn = await this.authService.isLoggedIn();
     if (!isLoggedIn) {
-      await this.authService.redirectToLoginPage(); // Redirect to login if not logged in
+      await this.authService.redirectToLoginPage();
       return;
     }
 

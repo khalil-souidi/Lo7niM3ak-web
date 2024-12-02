@@ -1,0 +1,22 @@
+<div class="my-conversations-container">
+    <h2>My Conversations</h2>
+  
+    <div *ngIf="isLoading" class="loading">Loading...</div>
+    <div *ngIf="!isLoading && conversations.length > 0; else noConversations">
+      <div
+        class="conversation-card"
+        *ngFor="let conversation of conversations"
+        (click)="navigateToChat(conversation.id, conversation.firstName + ' ' + conversation.lastName)"
+      >
+        <div class="conversation-details">
+          <h3>{{ conversation.firstName }} {{ conversation.lastName }}</h3>
+          <p>{{ conversation.email }}</p>
+        </div>
+      </div>
+    </div>
+  
+    <ng-template #noConversations>
+      <p>No conversations found.</p>
+    </ng-template>
+  </div>
+  

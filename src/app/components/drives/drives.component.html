@@ -43,7 +43,7 @@
           <p class="price bold"><i class="fas fa-coins"></i> {{ drive.price | currency:'MAD':'symbol':'1.0-0' }}</p>
           <p class="seats bold"><i class="fas fa-users"></i> Places disponibles: {{ drive.seating }}</p>
           <!-- Add Departure Date -->
-          <p class="departure-date bold"><i class="fas fa-calendar"></i> Date de départ: {{ drive.deptime | date:'dd/MM/yyyy' }}</p>
+          <p class="departure-date bold"><i class="fas fa-calendar"></i> Date de départ: {{ drive.deptime | date:'dd/MM/yyyy HH:mm' }}</p>
         </div>
       </div>
 

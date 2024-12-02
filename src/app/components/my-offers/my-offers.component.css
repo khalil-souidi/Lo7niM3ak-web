@@ -1,0 +1,82 @@
+.my-offers-container {
+    padding: 20px;
+    background-color: #f4f8fc; /* Light blue-gray background for the container */
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #2c3e50; /* Dark blue-gray for the heading */
+}
+
+.loading,
+.error {
+    text-align: center;
+    font-size: 16px;
+    color: gray;
+}
+
+.error {
+    color: #e74c3c; /* Red for error messages */
+}
+
+.offers-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 cards per row */
+    gap: 20px;
+}
+
+.offer-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    background-color: #ffffff; /* White background for the cards */
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s;
+}
+
+.offer-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    background-color: #e3f2fd; /* Light blue hover effect */
+}
+
+.offer-details h3 {
+    margin: 0 0 10px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #007bff; /* Blue for titles */
+}
+
+.offer-details p {
+    margin: 5px 0;
+    font-size: 14px;
+    color: #555; /* Medium gray for text */
+}
+
+/* Add color differentiation for statuses */
+.offer-card.accepted {
+    border-left: 5px solid #28a745; /* Green border for accepted offers */
+}
+
+.offer-card.pending {
+    border-left: 5px solid #ffc107; /* Yellow border for pending offers */
+}
+
+.offer-card.completed {
+    border-left: 5px solid #6c757d; /* Gray border for completed offers */
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+    .offers-grid {
+        grid-template-columns: repeat(2, 1fr); /* 2 cards per row for medium screens */
+    }
+}
+
+@media (max-width: 576px) {
+    .offers-grid {
+        grid-template-columns: 1fr; /* 1 card per row for small screens */
+    }
+}

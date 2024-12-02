@@ -1,0 +1,115 @@
+.offer-details-container {
+    padding: 20px;
+    background-color: #f4f6f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333;
+}
+
+.loading {
+    text-align: center;
+    font-size: 18px;
+    color: #555;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+thead {
+    background-color: #2d3df0;
+    color: #fff;
+}
+
+th, td {
+    text-align: left;
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+.accept-btn {
+    background-color: #4caf50;
+    color: white;
+    padding: 8px 30px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 20px;
+}
+
+.accept-btn:hover {
+    background-color: #45a049;
+}
+
+.refuse-btn {
+    background-color: #f44336;
+    color: white;
+    padding: 8px 30px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 40px;
+}
+
+.refuse-btn:hover {
+    background-color: #d32f2f;
+}
+
+.chat-btn {
+    background-color: #007bff;
+    color: white;
+    padding: 8px 30px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-left: 20px;
+}
+
+.chat-btn:hover {
+    background-color: #0056b3;
+}
+
+.no-reservations {
+    text-align: center;
+    font-size: 16px;
+    color: #777;
+}
+
+.status {
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 4px;
+    text-transform: uppercase;
+}
+
+.status.pending {
+    background-color: #ff9800;
+    color: white;
+}
+
+.status.accepted {
+    background-color: #4caf50;
+    color: white;
+}
+
+.status.refused {
+    background-color: #f44336;
+    color: white;
+}

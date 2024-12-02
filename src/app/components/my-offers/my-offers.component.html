@@ -1,0 +1,28 @@
+<div class="my-offers-container">
+    <h2>My Offers</h2>
+  
+    <div *ngIf="isLoading" class="loading">Loading...</div>
+    <div *ngIf="hasError" class="error">An error occurred. Please try again later.</div>
+  
+    <div *ngIf="!isLoading && !hasError && drives.length > 0; else noDrives">
+      <div class="offers-grid">
+        <div
+          class="offer-card"
+          *ngFor="let drive of drives"
+          (click)="navigateToOfferDetails(drive.id)"
+        >
+          <div class="offer-details">
+            <h3>{{ drive.pickup }} → {{ drive.destination }}</h3>
+            <p>Departure: {{ drive.deptime | date: 'dd/MM/yyyy HH:mm' }}</p>
+            <p>Price: {{ drive.price | currency: 'MAD' }}</p>
+            <p>Seats Available: {{ drive.seating }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <ng-template #noDrives>
+      <p>You haven't created any offers yet.</p>
+    </ng-template>
+  </div>
+  

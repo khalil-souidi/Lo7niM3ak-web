@@ -1,0 +1,35 @@
+<div class="chat-container">
+    <h2>Chat with {{ clientName }}</h2>
+  
+    <div *ngIf="messages.length > 0" class="messages-container">
+      <div
+        *ngFor="let message of messages"
+        [ngClass]="{ 'message-sent': message.senderId === currentUserId, 'message-received': message.senderId !== currentUserId }"
+        class="message-bubble"
+      >
+        <p class="message-content">{{ message.content }}</p>
+        <span class="message-timestamp">{{ message.timestamp | date: 'shortTime' }}</span>
+      </div>
+    </div>
+  
+    <div *ngIf="messages.length === 0" class="no-messages">
+      <p>No messages yet. Start the conversation!</p>
+    </div>
+  
+    <div class="chat-input-container">
+      <input
+        type="text"
+        [(ngModel)]="newMessage"
+        placeholder="Type your message..."
+        class="chat-input"
+      />
+      <button
+        (click)="sendMessage()"
+        [disabled]="!newMessage.trim()"
+        class="send-button"
+      >
+        Send
+      </button>
+    </div>
+  </div>
+  

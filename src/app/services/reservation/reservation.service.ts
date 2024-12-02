@@ -4,33 +4,30 @@ import { Observable } from 'rxjs';
 import { ReservationDto } from 'src/app/models/ReservationDto';
 
 @Injectable({
-  providedIn: 'root' 
+  providedIn: 'root',
 })
 export class ReservationService {
 
-  private apiUrl = 'http://localhost:8080/api/v1/reservations'; 
+  private apiUrl = 'http://localhost:8080/api/v1/reservations';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   addReservation(reservation: ReservationDto): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}`, reservation);
   }
 
   acceptReservation(reservationId: number): Observable<any> {
-    return this.http.put<any>(`${this.apiUrl}/accept/${reservationId}`, {});
+    return this.http.put<any>(`${this.apiUrl}/${reservationId}/accept`, {});
   }
 
-  // Refuse a reservation
   refuseReservation(reservationId: number): Observable<any> {
-    return this.http.put<any>(`${this.apiUrl}/refuse/${reservationId}`, {});
+    return this.http.put<any>(`${this.apiUrl}/${reservationId}/refuse`, {});
   }
 
-  // Cancel a reservation
   cancelReservation(reservationId: number): Observable<any> {
-    return this.http.put<any>(`${this.apiUrl}/cancel/${reservationId}`, {});
+    return this.http.put<any>(`${this.apiUrl}/${reservationId}/cancel`, {});
   }
 
-  // Create a payment intent (Stripe)
   createPaymentIntent(reservationId: number): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/${reservationId}/payment-intent`, {});
   }
@@ -41,9 +38,11 @@ export class ReservationService {
       {}
     );
   }
-  createBill(reservation: ReservationDto): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/create-bill`, reservation);
+
+  getReservationsByUserId(userId: number): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/user/${userId}`);
   }
-  
-  
+  getReservationsByDriveId(driveId: number) {
+    return this.http.get<any[]>(`${this.apiUrl}/drive/${driveId}`);
+  }
 }

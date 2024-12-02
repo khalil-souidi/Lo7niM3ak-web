@@ -1,0 +1,48 @@
+<div class="offer-details-container">
+    <h2>Reservations for Drive {{ driveDetails?.pickup }} → {{ driveDetails?.destination }}</h2>
+
+    <div *ngIf="isLoading" class="loading">Loading...</div>
+    <div *ngIf="!isLoading && reservations.length > 0; else noReservations">
+        <table>
+            <thead>
+                <tr>
+                    <th>Client Name</th>
+                    <th>Seats</th>
+                    <th>Total Amount</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                    <th>Chat</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let reservation of reservations">
+                    <td>{{ reservation.user?.firstName }} {{ reservation.user?.name }}</td>
+                    <td>{{ reservation.seats }}</td>
+                    <td>{{ reservation.totalAmount | currency: 'MAD' }}</td>
+                    <td>
+                        <span [ngClass]="getStatusClass(reservation.status)">
+                            {{ reservation.status }}
+                        </span>
+                    </td>
+                    <td>
+                        <button *ngIf="reservation.status === 'PENDING'" class="accept-btn" (click)="acceptReservation(reservation.id)">Accept</button>
+                        <button *ngIf="reservation.status === 'PENDING'" class="refuse-btn" (click)="refuseReservation(reservation.id)">Refuse</button>
+                    </td>
+                    <td>
+                        <button
+                            *ngIf="reservation.status === 'ACCEPTED'"
+                            class="chat-btn"
+                            (click)="navigateToChat(reservation.user?.id, reservation.user?.firstName, reservation.user?.lastName)"
+                        >
+                            Chat
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <ng-template #noReservations>
+        <p>No reservations for this drive.</p>
+    </ng-template>
+</div>

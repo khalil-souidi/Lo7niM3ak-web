@@ -1,0 +1,38 @@
+<div class="my-reservations-container">
+    <h2>My Reservations</h2>
+    <div *ngIf="isLoading" class="loading">Loading...</div>
+    <div *ngIf="!isLoading && !hasError">
+      <div *ngIf="reservations.length > 0; else noReservations">
+        <div class="reservation-card" *ngFor="let reservation of reservations">
+          <div class="reservation-status" [ngClass]="getStatusClass(reservation.status)">
+            {{ reservation.status }}
+          </div>
+          <div class="reservation-details">
+            <h3>{{ reservation.drive.pickup }} → {{ reservation.drive.destination }}</h3>
+            <p>Date: {{ reservation.drive.deptime | date: 'dd/MM/yyyy' }}</p>
+            <p>Seats: {{ reservation.seats }}</p>
+            <p>Total Price: {{ reservation.totalPrice | currency: 'MAD' }}</p>
+            <button
+              *ngIf="reservation.status === 'PENDING'"
+              class="cancel-button"
+              (click)="cancelReservation(reservation.id)"
+            >
+              Cancel
+            </button>
+            <button
+              *ngIf="reservation.status === 'ACCEPTED'"
+              class="payment-button"
+              (click)="proceedToPayment(reservation.id)"
+            >
+              Proceed to Payment
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <ng-template #noReservations>
+      <p>You have no reservations yet.</p>
+    </ng-template>
+    <div *ngIf="hasError" class="error">An error occurred. Please try again later.</div>
+  </div>
+  

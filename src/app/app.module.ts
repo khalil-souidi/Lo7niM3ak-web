@@ -18,6 +18,11 @@ import { ReservationDetailsComponent } from './components/reservation-details/re
 import { CheckoutComponent } from './components/checkout/checkout.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
+import { MyReservationComponent } from './components/my-reservations/my-reservations.component';
+import { MyOffersComponent } from './components/my-offers/my-offers.component';
+import { OfferDetailsComponent } from './components/offer-details/offer-details.component';
+import { ChatComponent } from './components/chat/chat.component';
+import { MyConversationsComponent } from './components/my-conversations/my-conversations.component';
 
 
 
@@ -31,7 +36,12 @@ import { MatIconModule } from '@angular/material/icon';
     HomeComponent,
     DrivesComponent,
     ReservationDetailsComponent,
-    CheckoutComponent
+    CheckoutComponent,
+    MyReservationComponent,
+    MyOffersComponent,
+    OfferDetailsComponent,
+    ChatComponent,
+    MyConversationsComponent
   ],
   imports: [
     BrowserModule,
