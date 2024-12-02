@@ -3,13 +3,13 @@
     <div *ngIf="isLoading" class="loading">Loading...</div>
     <div *ngIf="!isLoading && !hasError">
       <div *ngIf="reservations.length > 0; else noReservations">
-        <div class="reservation-card" *ngFor="let reservation of reservations">
+        <div class="reservation-card" *ngFor="let reservation of reservations"> 
           <div class="reservation-status" [ngClass]="getStatusClass(reservation.status)">
             {{ reservation.status }}
           </div>
           <div class="reservation-details">
             <h3>{{ reservation.drive.pickup }} → {{ reservation.drive.destination }}</h3>
-            <p>Date: {{ reservation.drive.deptime | date: 'dd/MM/yyyy' }}</p>
+            <p>Date: {{ reservation.drive.deptime | date: 'dd/MM/yyyy HH:mm' }}</p>
             <p>Seats: {{ reservation.seats }}</p>
             <p>Total Price: {{ reservation.totalPrice | currency: 'MAD' }}</p>
             <button

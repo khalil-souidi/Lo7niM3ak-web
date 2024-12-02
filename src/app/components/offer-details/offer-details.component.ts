@@ -50,7 +50,6 @@ export class OfferDetailsComponent implements OnInit {
         const userRequests = reservations.map((reservation) =>
           this.userService.getUserById(reservation.userId)
         );
-
         forkJoin(userRequests).subscribe(
           (users) => {
             this.reservations = reservations.map((reservation, index) => ({
@@ -58,6 +57,7 @@ export class OfferDetailsComponent implements OnInit {
               user: users[index],
               totalAmount: this.driveDetails?.price * reservation.seats,
             }));
+            this.reservations.reverse();  
             this.isLoading = false;
           },
           (error) => {
@@ -72,30 +72,23 @@ export class OfferDetailsComponent implements OnInit {
       }
     );
   }
+  
 
   acceptReservation(reservationId: number): void {
+    this.updateReservationStatus(reservationId, 'ACCEPTED');
     this.reservationService.acceptReservation(reservationId).subscribe(
       () => {
         alert('Reservation accepted successfully.');
-        this.updateReservationStatus(reservationId, 'ACCEPTED');
       },
-      (error) => {
-        console.error('Error accepting reservation:', error);
-        alert('Failed to accept the reservation.');
-      }
     );
   }
 
   refuseReservation(reservationId: number): void {
+    this.updateReservationStatus(reservationId, 'REFUSED');
     this.reservationService.refuseReservation(reservationId).subscribe(
       () => {
         alert('Reservation refused successfully.');
-        this.updateReservationStatus(reservationId, 'REFUSED');
       },
-      (error) => {
-        console.error('Error refusing reservation:', error);
-        alert('Failed to refuse the reservation.');
-      }
     );
   }
 

@@ -53,18 +53,15 @@ export class MyReservationComponent implements OnInit {
       this.isLoading = false;
       return;
     }
-
     this.reservationService.getReservationsByUserId(this.user.id).subscribe(
       (reservations: any[]) => {
         if (reservations.length === 0) {
           this.isLoading = false;
           return;
         }
-
         const driveRequests = reservations.map((reservation) =>
           this.drivesService.getDriveById(reservation.driveId)
         );
-
         forkJoin(driveRequests).subscribe(
           (drives) => {
             this.reservations = reservations.map((reservation, index) => ({
@@ -72,6 +69,7 @@ export class MyReservationComponent implements OnInit {
               drive: drives[index],
               totalPrice: drives[index].price * reservation.seats,
             }));
+              this.reservations.reverse();
             this.isLoading = false;
           },
           (error) => {
@@ -86,13 +84,14 @@ export class MyReservationComponent implements OnInit {
       }
     );
   }
+  
+  
 
   cancelReservation(reservationId: number): void {
     if (confirm('Are you sure you want to cancel this reservation?')) {
       this.reservationService.cancelReservation(reservationId).subscribe(
         () => {
           alert('The reservation has been successfully canceled.');
-
           // Update the status of the canceled reservation locally
           const reservationIndex = this.reservations.findIndex(
             (res) => res.id === reservationId
@@ -120,9 +119,8 @@ export class MyReservationComponent implements OnInit {
   }
 
   getStatusClass(status: string): string {
-    return status.toLowerCase(); // Ensure consistency with CSS classes
+    return status.toLowerCase();
   }
-
   private handleError(): void {
     this.hasError = true;
     this.isLoading = false;

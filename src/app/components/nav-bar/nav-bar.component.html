@@ -5,9 +5,13 @@
       <div class="web-app-badge">Web App</div>
     </div>
     <nav class="header-nav">
+      <div class="nav-buttons">
+        <button *ngIf="isLoggedIn" routerLink="/MyReservations" class="reservations-btn">My Reservations</button>
+        <button *ngIf="isLoggedIn" routerLink="/MyOffers" class="offers-btn">My Offers</button>
+        <button *ngIf="isLoggedIn" routerLink="/MyConversations" class="conversations-btn">My Conversations</button>
+      </div>
     </nav>
     <div class="auth-buttons">
-    
       <button class="btn btn-secondary" *ngIf="!isLoggedIn" (click)="login()">
         <span class="auth-icon">🔑</span> Se connecter / S'inscrire
       </button>
