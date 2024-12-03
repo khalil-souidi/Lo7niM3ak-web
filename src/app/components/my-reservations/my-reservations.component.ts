@@ -5,6 +5,9 @@ import { AuthService } from 'src/app/services/keycloak/keycloak.service';
 import { UserService } from 'src/app/services/user/user.service';
 import { DrivesService } from 'src/app/services/drives/drives-service.service';
 import { User } from 'src/app/models/User';
+import { MatDialog } from '@angular/material/dialog';
+import { CheckoutComponent } from '../checkout/checkout.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-my-reservation',
@@ -16,11 +19,15 @@ export class MyReservationComponent implements OnInit {
   user: User | null = null;
   isLoading = false;
   hasError = false;
+  totalPrice!: number;
+
 
   constructor(
     private reservationService: ReservationService,
     private authService: AuthService,
+    private dialog: MatDialog,
     private userService: UserService,
+    private router: Router,
     private drivesService: DrivesService
   ) {}
 
@@ -116,7 +123,41 @@ export class MyReservationComponent implements OnInit {
 
   proceedToPayment(reservationId: number): void {
     alert(`Proceeding to payment for reservation ID: ${reservationId}`);
+  
+    this.reservationService.createPaymentIntent(reservationId).subscribe(
+      (paymentIntentResponse: any) => {
+        console.log('Payment Intent response:', paymentIntentResponse);
+        const clientSecret = paymentIntentResponse.client_secret;
+  
+        if (clientSecret) {
+          this.openPaymentDialog(reservationId, clientSecret);
+        } else {
+          console.error('Client secret is missing in the payment intent response.');
+          alert('Unable to process payment at this time.');
+        }
+      },
+      (error) => {
+        console.error('Error creating payment intent:', error);
+        alert('Failed to create payment intent. Please try again later.');
+      }
+    );
   }
+  openPaymentDialog(reservationId: number, clientSecret: string): void {
+    const dialogRef = this.dialog.open(CheckoutComponent, {
+      data: { reservationId, clientSecret, amount: this.totalPrice, email: this.user?.email },
+      width: '800px',
+      disableClose : true
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result === 'paymentSuccess') {
+        this.router.navigate(['/home']);
+      } else {
+        alert('Payment canceled or failed.');
+      }
+    });
+  }
+  
 
   getStatusClass(status: string): string {
     return status.toLowerCase();

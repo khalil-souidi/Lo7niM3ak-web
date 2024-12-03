@@ -1,37 +1,23 @@
 <div class="payment-modal">
   <div class="modal-header">
-    <h3 class="modal-title">Credit or Debit Card</h3>
+    <h3 class="modal-title">Paiement par Carte Bancaire</h3>
     <button class="close-button" (click)="closeDialog()">&times;</button>
   </div>
+
   <div class="modal-body">
-    <div class="card-input-group">
-      <label for="card-number">Numéro de carte</label>
-      <div class="card-input">
-        <input id="card-number" type="text" placeholder="4242 4242 4242 4242" />
-        <span class="card-type">VISA</span>
-      </div>
+    <div id="payment-element">
+      <!-- Stripe Payment Element will be injected here -->
     </div>
-    <div class="card-details">
-      <div>
-        <label for="expiry-date">Date d'expiration</label>
-        <input id="expiry-date" type="text" placeholder="MM / YY" />
-      </div>
-      <div>
-        <label for="security-code">Code de sécurité</label>
-        <input id="security-code" type="text" placeholder="CVC" />
-      </div>
-    </div>
-    <div class="country-input">
-      <label for="country">Pays</label>
-      <select id="country">
-        <option>Maroc</option>
-        <option>France</option>
-        <option>États-Unis</option>
-        <!-- Add more countries -->
-      </select>
+
+    <div *ngIf="displayError" class="error-message">
+      {{ displayError }}
     </div>
   </div>
+
   <div class="modal-footer">
-    <button class="confirm-button" (click)="payBill()">Confirm Payment</button>
+    <button class="confirm-button" (click)="handleSubmit()" [disabled]="isLoading">
+      <span *ngIf="!isLoading">Payer {{ data.amount | currency: 'MAD' }}</span>
+      <span *ngIf="isLoading">Traitement en cours...</span>
+    </button>
   </div>
 </div>

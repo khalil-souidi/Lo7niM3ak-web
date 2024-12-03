@@ -23,6 +23,10 @@ export class ReservationService {
   refuseReservation(reservationId: number): Observable<any> {
     return this.http.put<any>(`${this.apiUrl}/${reservationId}/refuse`, {});
   }
+  closeReservation(reservationId: number): Observable<any> {
+    return this.http.put(`${this.apiUrl}/${reservationId}/closed`, {});
+  }
+  
 
   cancelReservation(reservationId: number): Observable<any> {
     return this.http.put<any>(`${this.apiUrl}/${reservationId}/cancel`, {});

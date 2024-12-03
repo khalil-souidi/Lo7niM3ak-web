@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MatDialog } from '@angular/material/dialog';
 import { ReservationDto } from 'src/app/models/ReservationDto';
 import { ReservationService } from 'src/app/services/reservation/reservation.service';
-import { CheckoutComponent } from '../checkout/checkout.component';
 import { AuthService } from 'src/app/services/keycloak/keycloak.service';
 import { User } from 'src/app/models/User';
 import { UserService } from 'src/app/services/user/user.service';
@@ -20,17 +18,14 @@ export class ReservationDetailsComponent implements OnInit {
   price!: number;
   selectedSeats: number = 1;
   totalPrice!: number;
-  showPopup: boolean = true; // Property to toggle popup visibility
   seatError: boolean = false; // Error state for invalid seat selection
-
 
   constructor(
     private route: ActivatedRoute,
     private reservationService: ReservationService,
-    private dialog: MatDialog,
     private authService: AuthService,
     private userService: UserService,
-    private router: Router,
+    private router: Router
   ) {}
 
   async ngOnInit(): Promise<void> {
@@ -73,7 +68,7 @@ export class ReservationDetailsComponent implements OnInit {
       this.updateTotalPrice();
     }
   }
-  
+
   completeReservation(): void {
     if (!this.user) {
       alert('You must be logged in to complete the reservation.');
@@ -88,38 +83,15 @@ export class ReservationDetailsComponent implements OnInit {
 
     this.reservationService.addReservation(reservation).subscribe(
       (reservationResponse: any) => {
-        console.log('Reservation response:', reservationResponse);
-
-        this.reservationService.createPaymentIntent(reservationResponse.id).subscribe(
-          (paymentIntentResponse: any) => {
-            console.log('Payment Intent response:', paymentIntentResponse);
-            this.openPaymentDialog(reservationResponse.id, paymentIntentResponse.client_secret);
-          },
-          (error) => {
-            console.error('Error creating payment intent:', error);
-          }
-        );
+        console.log('Reservation successful:', reservationResponse);
+        alert('Réservation réussie !');
+        this.router.navigate(['/home']); // Navigate to home or any other desired page
       },
       (error) => {
         console.error('Error creating reservation:', error);
+        alert('Erreur lors de la réservation.');
       }
     );
-  }
-
-  openPaymentDialog(reservationId: number, clientSecret: string): void {
-    const dialogRef = this.dialog.open(CheckoutComponent, {
-      data: { reservationId, clientSecret, amount: this.totalPrice, email: this.user?.email },
-      width: '800px',
-      disableClose : true
-    });
-
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result === 'paymentSuccess') {
-        this.router.navigate(['/home']);
-      } else {
-        alert('Payment canceled or failed.');
-      }
-    });
   }
 
   updateTotalPrice(): void {

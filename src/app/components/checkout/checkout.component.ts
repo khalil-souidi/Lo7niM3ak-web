@@ -1,8 +1,9 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Stripe, loadStripe, Appearance } from '@stripe/stripe-js';
-import { environment } from 'environments/environment';
+import { Stripe, loadStripe } from '@stripe/stripe-js';
+import { Router } from '@angular/router';
 import { ReservationService } from 'src/app/services/reservation/reservation.service';
+import { environment } from 'environments/environment';
 
 @Component({
   selector: 'app-checkout',
@@ -10,81 +11,74 @@ import { ReservationService } from 'src/app/services/reservation/reservation.ser
   styleUrls: ['./checkout.component.css'],
 })
 export class CheckoutComponent implements OnInit {
-  stripe!: Stripe | null;
-  cardElement: any;
-  elements!: any;
-  displayError: any;
-  isFormValid: boolean = false;
+  stripe = Stripe(environment.stripePublishableKey);
+    elements: any;
+  paymentElement: any;
+  displayError: string = '';
   isLoading: boolean = false;
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: { reservationId: number; clientSecret: string; amount: number; email: string },
+    @Inject(MAT_DIALOG_DATA) public data: { clientSecret: string; amount: number; email: string },
     private dialogRef: MatDialogRef<CheckoutComponent>,
-    private reservationService: ReservationService
+    private reservationService: ReservationService,
+    private router: Router // Inject Router service for navigation
   ) {}
 
   async ngOnInit(): Promise<void> {
     this.stripe = await loadStripe(environment.stripePublishableKey);
 
     if (this.stripe) {
-      this.setupStripePaymentForm();
+      this.initializePayment();
     } else {
       console.error('Stripe failed to load.');
     }
   }
 
-  private setupStripePaymentForm() {
-    const appearance: Appearance = {
-      theme: 'flat',
-      labels: 'floating',
+  async initializePayment(): Promise<void> {
+    const appearance = {
+      theme: 'stripe',
     };
-    this.elements = this.stripe!.elements({ appearance });
-    this.cardElement = this.elements.create('card');
-    this.cardElement.mount('#card-element');
 
-    this.cardElement.on('change', (event: any) => {
-      this.displayError = document.getElementById('card-errors');
-      if (event.error) {
-        this.displayError.textContent = event.error.message;
-        this.isFormValid = false;
-      } else {
-        this.displayError.textContent = '';
-        this.isFormValid = true;
-      }
+    this.elements = this.stripe!.elements({ appearance, clientSecret: this.data.clientSecret });
+
+    const paymentElementOptions = {
+      layout: 'tabs',
+    };
+
+    this.paymentElement = this.elements.create('payment', paymentElementOptions);
+    this.paymentElement.mount('#payment-element');
+
+    this.paymentElement.on('change', (event: any) => {
+      this.displayError = event.error ? event.error.message : '';
     });
   }
 
-  payBill(): void {
-    if (!this.isFormValid) {
+  async handleSubmit(): Promise<void> {
+    if (!this.stripe || !this.elements) {
+      console.error('Stripe or elements not initialized.');
       return;
     }
 
     this.isLoading = true;
 
-    this.stripe!.confirmCardPayment(this.data.clientSecret, {
-      payment_method: {
-        card: this.cardElement,
-        billing_details: {
-          email: this.data.email,
-        },
+    const { error, paymentIntent } = await this.stripe.confirmPayment({
+      elements: this.elements,
+      confirmParams: {
       },
-    }).then((result) => {
-      this.isLoading = false;
-
-      if (result.error) {
-        this.displayError.textContent = result.error.message;
-      } else {
-        this.reservationService.confirmPayment(this.data.reservationId, result.paymentIntent.id).subscribe(
-          (response: any) => {
-            console.log('Payment confirmed:', response.message); 
-            this.dialogRef.close('paymentSuccess');
-          },
-          (error) => {
-            console.error('Error confirming payment:', error);
-          }
-        );
-      }
+      redirect: 'if_required', // Prevent redirection
     });
+
+    this.isLoading = false;
+
+    if (error) {
+      this.displayError = error.message || 'An unexpected error occurred.';
+    } else if (paymentIntent?.status === 'succeeded') {
+      console.log('Payment processed successfully:', paymentIntent);
+      this.dialogRef.close('paymentSuccess'); // Close dialog
+      this.router.navigate(['/home']); // Redirect to home
+    } else {
+      this.displayError = 'Payment not completed. Please try again.';
+    }
   }
 
   closeDialog(): void {
