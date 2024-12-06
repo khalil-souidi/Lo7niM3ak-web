@@ -8,6 +8,7 @@ import { User } from 'src/app/models/User';
 import { MatDialog } from '@angular/material/dialog';
 import { CheckoutComponent } from '../checkout/checkout.component';
 import { Router } from '@angular/router';
+import { CreateReviewComponent } from '../create-review/create-review.component';
 
 @Component({
   selector: 'app-my-reservation',
@@ -122,7 +123,6 @@ export class MyReservationComponent implements OnInit {
   }
 
   proceedToPayment(reservationId: number): void {
-    alert(`Proceeding to payment for reservation ID: ${reservationId}`);
   
     this.reservationService.createPaymentIntent(reservationId).subscribe(
       (paymentIntentResponse: any) => {
@@ -146,17 +146,36 @@ export class MyReservationComponent implements OnInit {
     const dialogRef = this.dialog.open(CheckoutComponent, {
       data: { reservationId, clientSecret, amount: this.totalPrice, email: this.user?.email },
       width: '800px',
-      disableClose : true
+      disableClose: true,
     });
-
+  
     dialogRef.afterClosed().subscribe((result) => {
       if (result === 'paymentSuccess') {
         this.router.navigate(['/home']);
+        // Ouvrir le dialogue de review après le paiement réussi
+        this.openReviewDialog();
       } else {
         alert('Payment canceled or failed.');
       }
     });
   }
+  
+  openReviewDialog(): void {
+    const dialogRef = this.dialog.open(CreateReviewComponent, {
+      width: '600px',
+      data: { userId: this.user?.id }, // Passez l'ID utilisateur
+      disableClose: true,
+    });
+  
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        alert('Thank you for your review!');
+      } else {
+        alert('Review submission was canceled.');
+      }
+    });
+  }
+  
   
 
   getStatusClass(status: string): string {

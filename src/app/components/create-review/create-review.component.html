@@ -1,0 +1,28 @@
+<div class="review-container">
+  <a class="back-link" (click)="cancel()">Back</a>
+  <h2>Why did you leave this rating?</h2>
+  <p class="subtitle">Amazing, above expectations!</p>
+
+  <!-- Section de notation -->
+  <div class="star-rating">
+    <span *ngFor="let star of [1, 2, 3, 4, 5]" class="star" [class.filled]="review.note >= star" (click)="setRating(star)">
+      ★
+    </span>
+  </div>
+
+  <!-- Champ pour le message -->
+  <form (ngSubmit)="submitReview()" class="review-form">
+    <textarea
+      matInput
+      [(ngModel)]="review.message"
+      name="message"
+      placeholder="Tell us about your own personal experience taking this course. Was it a good match for you?"
+      required
+      minlength="10"
+    ></textarea>
+
+    <div class="button-group">
+      <button mat-raised-button color="primary" type="submit" class="btn-save">Save and Continue</button>
+    </div>
+  </form>
+</div>
