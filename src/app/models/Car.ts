@@ -4,9 +4,9 @@ export interface Car {
     id: number;
     manufacturer: string;
     model: string;
-    numberOfSeats: number;
+    number_of_seats: number;
     color: string;
-    licencePlate: string;
+    licence_plate: string;
     user?: User;
   }
   

@@ -1,0 +1,53 @@
+<div class="profile-container">
+  <h2>Mon Profil</h2>
+
+  <div *ngIf="isLoading" class="loading">
+    Chargement des informations...
+  </div>
+
+  <div *ngIf="errorMessage && !isLoading" class="error-message">
+    {{ errorMessage }}
+  </div>
+
+  <div *ngIf="user && !isLoading" class="user-details">
+    <p><strong>Nom:</strong> {{ user?.firstName }} {{ user?.name }}</p>
+    <p><strong>Email:</strong> {{ user?.email }}</p>
+    <p><strong>Téléphone:</strong> {{ user?.phone }}</p>
+
+    <p>
+      <strong>Rôle:</strong>  Passenger
+      <label class="toggle-switch">
+        <input
+          type="checkbox"
+          [checked]="user?.role === 'driver'"
+          (change)="toggleRole()"
+        />
+        <span class="slider"></span>
+      </label> Driver
+    </p>
+    <div *ngIf="user?.role === 'driver'" class="role-note">
+      <p>Vous êtes actuellement conducteur.</p>
+    </div>
+    <div *ngIf="user?.role === 'passenger'" class="role-note">
+      <p>Vous êtes actuellement passager.</p>
+    </div>
+
+    <div class="reviews-section" *ngIf="reviews && reviews.length > 0">
+      <h3>Mes Avis</h3>
+      <ul>
+        <li *ngFor="let review of reviews">
+          <p><strong>Posté par:</strong> {{ review.clientName }}</p>
+          <p><strong>Note:</strong> {{ review.rating }}</p>
+          <p><strong>Commentaire:</strong> {{ review.comment }}</p>
+        </li>
+      </ul>
+    </div>
+
+    <div *ngIf="!reviews || reviews.length === 0" class="no-reviews">
+      <p>Aucun avis disponible.</p>
+    </div>
+  </div>
+  <div *ngIf="user?.role === 'driver'">
+    <app-driver-documents></app-driver-documents>
+  </div>
+</div>

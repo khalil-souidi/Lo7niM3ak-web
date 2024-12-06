@@ -23,6 +23,9 @@ import { MyOffersComponent } from './components/my-offers/my-offers.component';
 import { OfferDetailsComponent } from './components/offer-details/offer-details.component';
 import { ChatComponent } from './components/chat/chat.component';
 import { MyConversationsComponent } from './components/my-conversations/my-conversations.component';
+import { CreateDriveComponent } from './components/create-drive/create-drive.component';
+import { ProfilComponent } from './components/profil/profil.component';
+import { DriverDocumentsComponent } from './components/driver-documents/driver-documents.component';
 
 
 
@@ -41,7 +44,10 @@ import { MyConversationsComponent } from './components/my-conversations/my-conve
     MyOffersComponent,
     OfferDetailsComponent,
     ChatComponent,
-    MyConversationsComponent
+    MyConversationsComponent,
+    CreateDriveComponent,
+    ProfilComponent,
+    DriverDocumentsComponent
   ],
   imports: [
     BrowserModule,

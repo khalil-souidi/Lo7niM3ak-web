@@ -132,4 +132,22 @@
 .btn-secondary:hover {
   background-color: #2D71E4; /* Slightly darker blue */
 }
+/* Profile Button */
+.profile-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  color: #333;
+  display: flex;
+  align-items: center;
+  gap: 5px; /* Space between icon and text */
+  margin-right: 10px;
+  padding: 5px 10px;
+  transition: color 0.3s ease;
+}
+
+.profile-btn:hover {
+  color: #007bff; /* Change color on hover */
+}
 

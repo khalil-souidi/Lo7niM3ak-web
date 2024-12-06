@@ -1,0 +1,84 @@
+<div class="driver-documents-container">
+  <h2>Mes Voitures et Documents</h2>
+
+  <!-- Error Message -->
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
+
+  <!-- Car Details Form -->
+  <div class="car-details-form">
+    <h3>Ajouter les Détails de la Voiture</h3>
+    <form (ngSubmit)="addCar()">
+      <label for="manufacturer">Fabricant</label>
+      <input
+        id="manufacturer"
+        type="text"
+        [(ngModel)]="car.manufacturer"
+        name="manufacturer"
+        required
+      />
+
+      <label for="model">Modèle</label>
+      <input id="model" type="text" [(ngModel)]="car.model" name="model" required />
+
+      <label for="numberOfSeats">Nombre de sièges</label>
+      <input
+        id="numberOfSeats"
+        type="number"
+        [(ngModel)]="car.number_of_seats"
+        name="number_of_seats"
+        min="1"
+        required
+      />
+
+      <label for="color">Couleur</label>
+      <input id="color" type="text" [(ngModel)]="car.color" name="color" required />
+
+      <label for="licencePlate">Plaque d'immatriculation</label>
+      <input
+        id="licencePlate"
+        type="text"
+        [(ngModel)]="car.licence_plate"
+        name="licence_plate"
+        required
+      />
+
+      <button type="submit" [disabled]="!isFormValid()">Ajouter</button>
+    </form>
+  </div>
+
+  <!-- User's Cars Section -->
+  <div class="user-cars">
+    <h3>Mes Voitures</h3>
+    <ul>
+      <li *ngFor="let car of cars">
+        <p><strong>Fabricant:</strong> {{ car.manufacturer }}</p>
+        <p><strong>Modèle:</strong> {{ car.model }}</p>
+        <p><strong>Nombre de sièges:</strong> {{ car.number_of_seats }}</p>
+        <p><strong>Couleur:</strong> {{ car.color }}</p>
+        <p><strong>Plaque d'immatriculation:</strong> {{ car.licence_plate }}</p>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Upload Driving License Section -->
+  <div class="document-upload">
+    <h3>Ajouter un Permis de Conduire</h3>
+    <input type="file" (change)="onFileSelected($event)" />
+    <button (click)="uploadDocument()" [disabled]="!selectedFile">Télécharger</button>
+  </div>
+
+  <!-- Display Uploaded Documents -->
+  <div class="user-documents">
+    <h3>Documents Téléchargés</h3>
+    <ul>
+      <li *ngFor="let document of documents">
+        <p><strong>Titre:</strong> {{ document.title }}</p>
+        <button (click)="downloadDocument(document.id, document.title)">
+          Télécharger
+        </button>
+      </li>
+    </ul>
+  </div>
+</div>

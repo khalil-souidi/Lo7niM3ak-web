@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Review } from 'src/app/models/Review';
+import { ReviewDto } from 'src/app/models/ReviewDto';
 
 @Injectable({
   providedIn: 'root'
@@ -22,5 +23,7 @@ export class ReviewService {
   getAverageNoteByUserId(userId: number): Observable<number> {
     return this.http.get<number>(`${this.apiUrl}/user/${userId}/average-note`);
   }
-
+  getReviewsByUser(userId: number): Observable<ReviewDto[]> {
+    return this.http.get<ReviewDto[]>(`${this.apiUrl}/users/${userId}`);
+  }
 }

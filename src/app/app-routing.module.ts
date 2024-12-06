@@ -9,6 +9,8 @@ import { MyOffersComponent } from './components/my-offers/my-offers.component';
 import { OfferDetailsComponent } from './components/offer-details/offer-details.component';
 import { ChatComponent } from './components/chat/chat.component';
 import { MyConversationsComponent } from './components/my-conversations/my-conversations.component';
+import { ProfilComponent } from './components/profil/profil.component';
+import { DriverDocumentsComponent } from './components/driver-documents/driver-documents.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -19,6 +21,9 @@ const routes: Routes = [
   { path: 'offer-details', component: OfferDetailsComponent},// canActivate: [authGuard],
   { path: 'chat', component: ChatComponent},// canActivate: [authGuard],
   { path: 'MyConversations', component: MyConversationsComponent},// canActivate: [authGuard],
+  { path: 'profile', component: ProfilComponent },
+  { path: 'driver-documents', component: DriverDocumentsComponent },
+
 
   { path: '**', redirectTo: '' }
 ];

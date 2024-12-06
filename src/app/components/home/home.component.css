@@ -295,5 +295,19 @@ body {
 .search-btn:hover {
   background-color: #02843e;
 }
+.create-drive-button {
+  background-color: #2d71e4;
+  color: #fff;
+  padding: 10px 20px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-left: 1000px;
+}
 
+.create-drive-button:hover {
+  background-color: #235dbf;
+}
 

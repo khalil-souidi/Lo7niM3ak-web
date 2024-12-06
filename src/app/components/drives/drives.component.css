@@ -73,7 +73,7 @@
   transition: transform 0.3s, box-shadow 0.3s;
   border: 1px solid #e6e6e6;
   font-size: 14px;
-  max-width: 600px;
+  max-width: 750px;
   margin: 10px 0;
 }
 
@@ -129,16 +129,12 @@
   margin-top: 10px;
 }
 
-.details .description {
-  margin-bottom: 6px;
-}
-
 .details .seats {
   margin-top: 5px;
   font-weight: 600;
 }
 .details .price {
-  margin-top: 50px;
+  margin-top: 20px;
   font-weight: bold;
   font-size: 14px; /* Slightly larger font for emphasis */
   color: #000000; /* Distinct color for visibility */
@@ -149,7 +145,7 @@
 /* Driver Information */
 .driver-info {
   margin-top: 10px;
-  padding: 8px;
+  padding: 16px;
   border-radius: 8px;
   background: #f9f9f9;
   border-left: 4px solid #007bff;
@@ -216,7 +212,7 @@
 
 .line-indicator .dashed-line {
   width: 2px;
-  height: 30px; /* Adjust height based on spacing */
+  height: 65px; /* Adjust height based on spacing */
   background: repeating-linear-gradient(
     to bottom,
     #00b894,

@@ -1,0 +1,105 @@
+<div class="create-drive-popup">
+    <div class="popup-content">
+      <h2>Créer un Nouveau Trajet</h2>
+  
+      <form (ngSubmit)="createDrive()" #driveForm="ngForm">
+        <!-- Departure Dropdown -->
+        <div class="form-group">
+          <label for="pickup">Lieu de départ</label>
+          <select
+            id="pickup"
+            [(ngModel)]="drive.pickup"
+            name="pickup"
+            required>
+            <option value="" disabled selected>Choisir le lieu de départ</option>
+            <option *ngFor="let city of cities" [value]="city">{{ city }}</option>
+          </select>
+          <div *ngIf="!drive.pickup" class="error-message">Lieu de départ requis.</div>
+        </div>
+  
+        <!-- Destination Dropdown -->
+        <div class="form-group">
+          <label for="destination">Destination</label>
+          <select
+            id="destination"
+            [(ngModel)]="drive.destination"
+            name="destination"
+            required>
+            <option value="" disabled selected>Choisir la destination</option>
+            <option *ngFor="let city of cities" [value]="city">{{ city }}</option>
+          </select>
+          <div *ngIf="!drive.destination" class="error-message">Destination requise.</div>
+        </div>
+  
+        <!-- Date and Time Input -->
+        <div class="form-group">
+          <label for="deptime">Date et Heure de Départ</label>
+          <input
+            type="datetime-local"
+            id="deptime"
+            [(ngModel)]="drive.deptime"
+            name="deptime"
+            [min]="minDateTime"
+            required />
+          <div *ngIf="!drive.deptime" class="error-message">Date et heure requises.</div>
+        </div>
+  
+        <!-- Price Input -->
+        <div class="form-group">
+          <label for="price">Prix</label>
+          <input
+            type="number"
+            id="price"
+            [(ngModel)]="drive.price"
+            name="price"
+            min="0"
+            placeholder="Entrez le prix par siège"
+            required />
+          <div *ngIf="drive.price !== undefined && drive.price < 0" class="error-message">
+            Le prix ne peut pas être négatif.
+          </div>
+        </div>
+  
+        <!-- Seating Capacity Input -->
+        <div class="form-group">
+          <label for="seating">Capacité</label>
+          <input
+            type="number"
+            id="seating"
+            [(ngModel)]="drive.seating"
+            name="seating"
+            min="0"
+            placeholder="Entrez le nombre de sièges disponibles"
+            required />
+          <div *ngIf="drive.seating !== undefined && drive.seating < 0" class="error-message">
+            La capacité ne peut pas être négative.
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label for="description">Description</label>
+          <textarea
+            id="description"
+            [(ngModel)]="drive.description"
+            name="description"
+            placeholder="Ajoutez des détails sur le trajet"></textarea>
+        </div>
+  
+        <div class="actions">
+          <button
+            type="submit"
+            class="btn btn-primary"
+            [disabled]="isInvalidDrive()">
+            Créer le Trajet
+          </button>
+          <button
+            type="button"
+            class="btn btn-secondary"
+            (click)="closePopup()">
+            Annuler
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+  

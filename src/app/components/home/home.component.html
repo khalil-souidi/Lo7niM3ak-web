@@ -1,4 +1,3 @@
-
 <div class="hero-section">
   <div class="hero-content">
     <h1 id="tit1">Trouvez le moyen de transport idéal pour vos trajets entre villes</h1>
@@ -51,6 +50,13 @@
     </div>
   </div>
 </div>
+<br><br>
+<button class="create-drive-button" *ngIf="isDriver" (click)="openCreateDrivePopup()">Créer un Nouveau Trajet</button>
+<app-create-drive
+  *ngIf="showCreateDrivePopup"
+  (close)="closeCreateDrivePopup()"
+  (driveCreated)="handleNewDrive($event)">
+</app-create-drive>
 
 
   <!-- Secure Carpooling Section -->
@@ -147,6 +153,3 @@
     <p>Peu importe où vous allez, trouvez le trajet parfait parmi une large gamme de destinations.</p>
   </div>
 </div>
-
-  
-

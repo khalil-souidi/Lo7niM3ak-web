@@ -1,9 +1,8 @@
-import { User } from "./User";
+import { User } from './User';
 
 export interface Document {
-    id: number;
-    title: string;
-    url: string;
-    user?: User;
-  }
-  
+  id: number;
+  title: string;
+  content?: string;
+  user?: User;
+}

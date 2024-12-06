@@ -45,6 +45,12 @@
           <!-- Add Departure Date -->
           <p class="departure-date bold"><i class="fas fa-calendar"></i> Date de départ: {{ drive.deptime | date:'dd/MM/yyyy HH:mm' }}</p>
         </div>
+        <!-- Car Details Section -->
+        <div class="car-details" *ngIf="drive.car">
+        <h5 class="car-title"><i class="fas fa-car"></i> Informations sur la voiture</h5>
+        <p><i class="fas fa-car-side"></i> La marque: {{ drive.car.manufacturer }}</p>
+        <p><i class="fas fa-id-badge"></i>immatriculation: {{ drive.car.licence_plate }}</p>
+        </div>
       </div>
 
       <!-- Driver Information -->

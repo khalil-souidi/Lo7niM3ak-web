@@ -19,6 +19,10 @@
       <button class="btn btn-secondary" *ngIf="isLoggedIn" (click)="logout()">
         <span class="auth-icon">🚪</span> Se déconnecter
       </button>
+       <!-- Profile Icon -->
+       <button *ngIf="isLoggedIn" routerLink="/profile" class="profile-btn">
+        <span class="auth-icon">👤</span> Profile
+      </button>
     </div>
   </div>
 </header>
