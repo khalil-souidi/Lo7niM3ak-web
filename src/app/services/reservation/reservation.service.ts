@@ -38,10 +38,11 @@ export class ReservationService {
 
   confirmPayment(reservationId: number, paymentIntentId: string): Observable<any> {
     return this.http.post<any>(
-      `${this.apiUrl}/${reservationId}/confirm-payment?paymentIntentId=${paymentIntentId}`,
-      {}
+      `${this.apiUrl}/reservations/${reservationId}/confirm-payment`,
+      { paymentIntentId }
     );
   }
+  
 
   getReservationsByUserId(userId: number): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/user/${userId}`);

@@ -26,6 +26,11 @@ import { MyConversationsComponent } from './components/my-conversations/my-conve
 import { CreateDriveComponent } from './components/create-drive/create-drive.component';
 import { ProfilComponent } from './components/profil/profil.component';
 import { DriverDocumentsComponent } from './components/driver-documents/driver-documents.component';
+import { CreateReviewComponent } from './components/create-review/create-review.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
 
 
 
@@ -47,17 +52,22 @@ import { DriverDocumentsComponent } from './components/driver-documents/driver-d
     MyConversationsComponent,
     CreateDriveComponent,
     ProfilComponent,
-    DriverDocumentsComponent
+    DriverDocumentsComponent,
+    CreateReviewComponent
   ],
   imports: [
     BrowserModule,
     MatIconModule,
     AppRoutingModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
     FormsModule,
     CommonModule,
     HttpClientModule,
     RouterModule,
     MatDialogModule,
+    BrowserAnimationsModule,
   ],
   providers: [
 
