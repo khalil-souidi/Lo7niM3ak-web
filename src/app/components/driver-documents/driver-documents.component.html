@@ -1,5 +1,5 @@
 <div class="driver-documents-container">
-  <h2>Mes Voitures et Documents</h2>
+  <h2>Mes Voitures</h2>
 
   <!-- Error Message -->
   <div *ngIf="errorMessage" class="error-message">
@@ -58,26 +58,6 @@
         <p><strong>Nombre de sièges:</strong> {{ car.number_of_seats }}</p>
         <p><strong>Couleur:</strong> {{ car.color }}</p>
         <p><strong>Plaque d'immatriculation:</strong> {{ car.licence_plate }}</p>
-      </li>
-    </ul>
-  </div>
-
-  <!-- Upload Driving License Section -->
-  <div class="document-upload">
-    <h3>Ajouter un Permis de Conduire</h3>
-    <input type="file" (change)="onFileSelected($event)" />
-    <button (click)="uploadDocument()" [disabled]="!selectedFile">Télécharger</button>
-  </div>
-
-  <!-- Display Uploaded Documents -->
-  <div class="user-documents">
-    <h3>Documents Téléchargés</h3>
-    <ul>
-      <li *ngFor="let document of documents">
-        <p><strong>Titre:</strong> {{ document.title }}</p>
-        <button (click)="downloadDocument(document.id, document.title)">
-          Télécharger
-        </button>
       </li>
     </ul>
   </div>

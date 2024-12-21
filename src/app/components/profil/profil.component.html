@@ -32,6 +32,7 @@
       <p>Vous êtes actuellement passager.</p>
     </div>
 
+    <div *ngIf="user?.role === 'driver'">
     <div class="reviews-section" *ngIf="reviews && reviews.length > 0">
       <h3>Mes Avis</h3>
       <ul>
@@ -47,6 +48,7 @@
       <p>Aucun avis disponible.</p>
     </div>
   </div>
+</div>
   <div *ngIf="user?.role === 'driver'">
     <app-driver-documents></app-driver-documents>
   </div>
